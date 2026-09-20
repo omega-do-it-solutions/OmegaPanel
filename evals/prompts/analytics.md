@@ -1,0 +1,5 @@
+# Evaluation prompt: global analytics
+
+Design a revenue and retention dashboard for finance leaders and growth analysts at a global subscription-commerce company. Data arrives hourly and includes gross revenue, refunds, MRR movement, subscriptions, regions, plans, channels, and transaction currencies. Users compare a selected period to the previous complete period and plan, then drill into the segment causing a change.
+
+Support `en-US`, `de-DE`, `ar-SA`, and `ja-JP`; USD, EUR, SAR, and JPY; account reporting time zones; finance, analyst, and region-limited permissions; desktop and mobile; React, TypeScript, and Tailwind. Include loading, empty, stale, partial error, full error, restricted, and export states. Specify the preferred React table/request/chart/date stack, toolbar and filter drawer, gutterless bordered table card, tri-state sorting, pagination, advanced column features, shareable URL state, stat-card variants, number grouping, and fonts. Produce an implementation-ready plan, not code.
