@@ -9,7 +9,6 @@
 </p>
 
 <p align="center">
-  <a href="https://skills.sh/omega-do-it-solutions/DashCraft"><img src="https://skills.sh/b/omega-do-it-solutions/DashCraft" alt="Install count on skills.sh"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-2563EB.svg" alt="MIT license"></a>
 </p>
 
@@ -24,6 +23,8 @@ npx skills add omega-do-it-solutions/DashCraft --skill dashboard-craft
 ```
 
 The installer detects supported agents and lets you choose the destination. The default project installation is best for teams because the installed skill can be committed with the application.
+
+If this GitHub repository is private, the user must have repository access and authenticated Git credentials (or a `GITHUB_TOKEN` available in their environment). If the repository is made public, the same command works without authentication and can also be listed on [skills.sh](https://skills.sh/).
 
 Install globally for use across projects:
 
