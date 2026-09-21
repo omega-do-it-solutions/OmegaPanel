@@ -24,9 +24,13 @@ Inspect the repository first: framework, installed versions, package manager, de
 | Carousels | Swiper | Ordered swipeable media or cards are genuinely clearer than a static/list layout. |
 | Runtime schemas | Zod or an ecosystem equivalent | API, form, URL, or environment data needs runtime validation and typed inference. |
 | Form state | React Hook Form, VeeValidate, or ecosystem equivalent | The form needs submission state, field registration, validation, and accessible error handling. |
+| Select boxes | React Select, Vue Multiselect, Svelte Select, Kobalte Select, or ng-select | The product needs custom single/multi select, typeahead, async options, grouping, or consistent non-native select presentation. Choose the adapter for the existing framework and wrap it locally. |
+| Interface icons | Phosphor Icons or the repository's established icon system | React dashboard actions and navigation need a consistent, accessible vector icon family. |
 | Static quality | ESLint and Prettier, or repository equivalents | The project needs consistent diagnostics and formatting. Follow existing repository configuration. |
 
 TipTap is explicitly framework-agnostic and provides integrations for common frameworks, so select the adapter that matches the project rather than changing the project's stack. TanStack libraries likewise have multiple framework adapters; verify the package and version appropriate to the actual codebase.
+
+For framework-specific select defaults and the customization/accessibility contract for select boxes, checkboxes, radio groups, switches, and range sliders, read [form-controls.md](form-controls.md). Do not expose browser-default control chrome or hand-roll combobox focus/typeahead behavior.
 
 ## Selection rules
 
@@ -35,6 +39,7 @@ TipTap is explicitly framework-agnostic and provides integrations for common fra
 - Verify current official documentation and the installed major version before writing library-specific APIs.
 - Check accessibility, keyboard behavior, SSR/hydration support, browser support, tree-shaking/bundle impact, maintenance, and licensing.
 - Use one clear owner per concern. Do not add overlapping chart, form, request, or notification libraries without a migration reason.
+- For a new React dashboard without an established icon system, prefer `@phosphor-icons/react`; use one family consistently, import individual icons, keep icons decorative when adjacent text already names the action, and give icon-only controls accessible names. Do not replace an existing product icon system solely to follow this default.
 - Keep product behavior in framework-neutral contracts. Library examples demonstrate one implementation, not the only valid implementation.
 - Pin or range versions according to repository policy; never invent dependency versions.
 - Lazy-load heavy editors, maps, syntax highlighters, and charting modules when they are not needed for the first meaningful view.
@@ -53,3 +58,8 @@ Primary documentation:
 - [Shiki installation](https://shiki.style/guide/install)
 - [Swiper getting started](https://swiperjs.com/get-started)
 - [Zod documentation](https://zod.dev/)
+- [React Select documentation](https://react-select.com/)
+- [Vue Multiselect package](https://www.npmjs.com/package/vue-multiselect)
+- [Svelte Select package](https://www.npmjs.com/package/svelte-select)
+- [Kobalte Select documentation](https://kobalte.dev/docs/core/components/select/)
+- [ng-select package](https://www.npmjs.com/package/@ng-select/ng-select)

@@ -8,6 +8,7 @@ import { fileURLToPath } from 'node:url'
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url))
 const repositoryRoot = path.resolve(scriptDirectory, '..')
 const skillRoot = path.join(repositoryRoot, 'skills', 'dashboard-craft')
+const codeQualitySkillRoot = path.join(repositoryRoot, 'skills', 'code-quality')
 const failures = []
 
 function fail(message) {
@@ -34,7 +35,10 @@ const requiredPaths = [
   'assets/dashcraft-logo.png',
   'references/application-shell-and-forms.md',
   'references/dashboard-design.md',
+  'references/form-controls.md',
+  'references/initial-app-loader.md',
   'references/package-selection.md',
+  'references/skeleton-loaders.md',
   'templates/dashboard-plan.md',
   'checklists/dashboard-review.md',
 ]
@@ -58,6 +62,37 @@ if (fs.existsSync(skillPath)) {
     }
     if (!/^description:\s*\S.+$/m.test(metadata)) {
       fail('SKILL.md frontmatter must include a non-empty description')
+    }
+  }
+}
+
+const codeQualityRequiredPaths = [
+  'SKILL.md',
+  'agents/openai.yaml',
+  'references/react-typescript-structure.md',
+]
+
+for (const relativePath of codeQualityRequiredPaths) {
+  const absolutePath = path.join(codeQualitySkillRoot, relativePath)
+  if (!fs.existsSync(absolutePath)) {
+    fail(`Missing required code-quality skill file: ${relativePath}`)
+  }
+}
+
+const codeQualitySkillPath = path.join(codeQualitySkillRoot, 'SKILL.md')
+if (fs.existsSync(codeQualitySkillPath)) {
+  const skill = fs.readFileSync(codeQualitySkillPath, 'utf8')
+  const frontmatter = skill.match(/^---\r?\n([\s\S]*?)\r?\n---/)
+
+  if (!frontmatter) {
+    fail('code-quality/SKILL.md must begin with YAML frontmatter')
+  } else {
+    const metadata = frontmatter[1]
+    if (!/^name:\s*code-quality\s*$/m.test(metadata)) {
+      fail('code-quality/SKILL.md frontmatter name must be code-quality')
+    }
+    if (!/^description:\s*\S.+$/m.test(metadata)) {
+      fail('code-quality/SKILL.md frontmatter must include a non-empty description')
     }
   }
 }

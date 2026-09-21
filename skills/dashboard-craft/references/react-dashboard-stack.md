@@ -11,10 +11,13 @@ Before writing library-specific APIs, inspect the project's installed major vers
 - **HTTP:** a typed Axios instance used inside query/mutation functions.
 - **Charts:** ApexCharts through its React wrapper.
 - **Dates:** Day.js with `localizedFormat`, `utc`, and `timezone`; add other plugins only when the use case requires them.
+- **Select boxes:** React Select behind one typed local design-system wrapper.
 - **Styles:** Tailwind plus logical CSS properties/utilities.
 - **Fonts:** Inter for English and other Latin-script UI; Vazirmatn for Persian; add script-appropriate fallbacks for other locales.
 
 For application-shell states and the required submit-first/input-after-submit form behavior, also follow [application-shell-and-forms.md](application-shell-and-forms.md). React forms may use React Hook Form with `mode: 'onSubmit'`, `reValidateMode: 'onChange'`, and a schema resolver such as Zod when the project uses schema validation.
+
+For a branded first-load surface, follow [initial-app-loader.md](initial-app-loader.md): keep its markup and critical theme-aware CSS in the static HTML beside an inert, busy `#root`. Keep that overlay visible through session restoration, startup redirects, and the committed initial lazy route. During that interval React `Suspense` and auth-guard fallbacks render `null`, preventing a second loader; a route-ready effect removes the overlay and activates the root. Catch optional bootstrap failures so the loader cannot remain indefinitely. Later route transitions use contextual progress or skeletons, never the startup overlay.
 
 Useful primary documentation:
 
@@ -25,6 +28,34 @@ Useful primary documentation:
 - [ApexCharts stroke curves](https://apexcharts.com/docs/options/stroke/)
 - [Day.js localized formats](https://day.js.org/docs/en/plugin/localized-format)
 - [Day.js timezone plugin](https://day.js.org/docs/en/plugin/timezone)
+- [React Select documentation](https://react-select.com/)
+- [React Select styling APIs](https://react-select.com/styles)
+
+## Form-control profile
+
+Follow the complete [custom form-control contract](form-controls.md). In this React profile:
+
+- import `react-select` only in one local `SelectBox` wrapper; feature forms consume the wrapper, not the package;
+- use typed `{ value, label, isDisabled? }` options with stable raw values, `unstyled` or the documented styling APIs, theme tokens, and one shared menu-portal policy;
+- integrate React Select with React Hook Form through `Controller`, keeping validation and dirty/reset state in the form owner;
+- render locally owned checkboxes and radios with visually hidden native inputs plus custom marks so browser chrome is absent while form and keyboard semantics remain intact;
+- render switches as labeled `role="switch"` buttons for immediate settings, with `aria-checked`, disabled/pending behavior, and track/thumb state cues;
+- render single and dual range sliders over styled native range inputs, with normalized token-based rails/fill/thumbs, separately named dual values, clamped crossing behavior, and formatted `aria-valuetext`;
+- keep select menus above drawers/dialogs without breaking anchoring or focus containment, and verify the wrapper in light, dark, RTL, forced-colors, zoomed, and narrow layouts.
+
+Do not keep a fallback product `<select>` merely for short option lists. Searchability can be disabled while the same packaged wrapper preserves consistent visuals and interaction.
+
+## Locale-selector profile
+
+The compact global-header locale switcher is a command menu, not a form field, so it does not need React Select merely because ordinary select boxes do. For a small fixed locale set:
+
+- define typed options such as `{ value, label, code, flag, direction }`, where `value` is the stable locale ID, `code` is the short uppercase trigger text, and the flag is decorative;
+- render a local `LocaleSwitcher` component with a native trigger button and an accessible single-select popup menu; use checked menu items (or an equivalent established menu pattern), never a hidden native `<select>` plus a second visual tree;
+- anchor with `end-0 top-full`, keep a compact token-based surface, highlight the selected item with semantic and non-color state, and layer it above the sticky shell without portal/focus surprises;
+- use refs for selected-item focus, roving tab stop, Escape restoration, outside-pointer dismissal, and Arrow/Home/End/typeahead behavior; locale changes update the provider/document/persistence while the current route and feature state remain mounted;
+- test trigger code/current accessible name, checked state, pointer selection, keyboard movement, Escape focus restoration, persistence, and LTR/RTL logical positioning.
+
+For a large or searchable locale catalog, use the project's packaged select wrapper or a dedicated dialog instead. See [internationalization.md](internationalization.md) for the complete product and flag policy.
 
 ## Table-card composition
 
@@ -32,6 +63,9 @@ Use one bordered surface for toolbar, table, and pagination:
 
 ```text
 ┌─────────────────────────────────────────────────────────────┐
+│ Card header: title                                             │
+│              concise description                              │
+│                                                              │
 │ Toolbar: search                Filter  Export  Primary action│
 │ Applied filters: [Status: New ×] [Owner: None ×]  Clear all │
 ├─────────────────────────────────────────────────────────────┤
@@ -45,6 +79,8 @@ Use one bordered surface for toolbar, table, and pagination:
 
 “Gutterless” means the table reaches the card's inline edges with no card padding around the table grid. The toolbar and pagination footer keep their own responsive padding. Use the card border as the outer table border to avoid doubled lines; add subtle separators between toolbar, header, rows, and footer. Clip pinned backgrounds and hover states to the card radius.
 
+The card header and table toolbar are separate regions. Keep the table title and concise description in the card header; do not remove or replace them when moving search to the toolbar's start side. Give the header and toolbar a deliberate visual gap or boundary—normally 16–24 px of block spacing inside the padded card header/controls area—while keeping the toolbar clearly attached to the table it controls.
+
 Recommended visual treatment:
 
 - white/default surface, subtle neutral border, 12–16 px radius, and little or no shadow;
@@ -57,6 +93,8 @@ Recommended visual treatment:
 ## Toolbar and filter drawer
 
 Place the toolbar immediately above the table inside the same card.
+
+Do not put table search, filters, export, add/create, date/range, or view controls into a page-level eyebrow/title/description banner. The shell breadcrumb already identifies the page; the table card owns its local context and actions.
 
 ### Toolbar anatomy
 
@@ -73,6 +111,20 @@ Open filters in an end-side drawer on wide screens and a full-screen sheet/dialo
 
 Filter options use stable IDs; labels are localized presentation. Show current applied values as chips outside the drawer. Preserve useful facet counts from the server, but do not calculate “all results” facets from one fetched page.
 
+### Export behavior
+
+Export is a server-owned operation for server-backed tables. Send the authorized search and applied filters to a dedicated export endpoint, but omit pagination and interactive client-sort state so the server exports the complete matching dataset—not only the visible page. Do not fetch every page into the browser and concatenate it. The server re-applies authorization, redaction, stable column definitions, locale/time-zone/currency metadata, CSV-injection protection, and any practical row limit before returning a file or asynchronous export job. Make an explicit distinction when the product offers both “Export filtered results” and “Export all data”; “all” must not silently inherit the current page or a hidden time filter.
+
+Keep export available while paging when safe, communicate preparation/progress, preserve the table state, and surface server validation or permission failures beside the toolbar action.
+
+### Add and edit surfaces
+
+Use one shared form component and validation schema for add and edit; vary initial values, copy, permissions, and submit mutation rather than maintaining divergent forms.
+
+- Small, bounded forms normally open in an end-side drawer (full-screen sheet on narrow screens) so users retain table context. The primary add action opens an empty instance; row edit opens the same surface populated with that record. Closing restores focus to the invoking control and successful save refreshes the affected query without losing valid table state.
+- Large, multi-section, long-running, or route-worthy operations use standalone add/edit pages with stable URLs, navigation guards for unsaved changes, and an explicit return path to the preserved table view.
+- Use a centered confirmation dialog only for destructive confirmation or a genuinely short blocking decision; do not use it as the default CRUD form container.
+
 ## TanStack Table contract
 
 Use TanStack Table as the headless state/behavior engine; keep semantic `<table>`, `<thead>`, `<tbody>`, `<th>`, and `<td>` markup for ordinary tabular data.
@@ -88,7 +140,7 @@ Support where relevant:
 - stable backend row IDs;
 - optional grouping/expansion/virtualization when the use case justifies them.
 
-When the backend owns pagination, it must also own every filter, sort, facet, grouping, or aggregation intended to describe the full dataset. Enable the corresponding manual server-side modes and do not add client row models that would misleadingly transform only the loaded page. Pass the server `rowCount` or `pageCount` and reset/validate the page after query-shape changes.
+Interactive sorting is client-owned. Load the complete filtered dataset required by sortable columns, enable TanStack's client `getSortedRowModel`, and apply sorting before pagination. Never enable `manualSorting`, send `sort`/`orderBy` with the table-data request, include sorting in the query key, or sort only the currently visible server page. Search, filters, facets, and export may remain server-owned. If data volume makes the complete sortable dataset unsafe to load, report the constraint and require an explicit product decision rather than silently substituting server sorting.
 
 Column resizing defaults to `onEnd` for rendering performance. Set the resize direction from the resolved UI direction. Persist column width/order/visibility/pinning as a user table preference when valuable, but do not put large transient sizing state in a share URL.
 
@@ -100,11 +152,11 @@ Every sortable header is a button inside its `<th>` and cycles:
 none → ascending → descending → none
 ```
 
-Keep sorting removal enabled. Expose the current state with `aria-sort`, a visible icon, and an accessible next-action label such as “Sort ascending,” “Sort descending,” or “Clear sort.” Use the table library's next-order/toggle APIs instead of maintaining a second sorting state.
+Keep sorting removal enabled. Expose the current state with `aria-sort`, a visible state-specific icon, and an accessible next-action label such as “Sort ascending,” “Sort descending,” or “Clear sort.” Use this fixed visual mapping: a vertical up/down arrow pair for `none`, a single upward arrow for `ascending`, and a single downward arrow for `descending`. With Phosphor Icons, use `ArrowsDownUp`, `ArrowUp`, and `ArrowDown` respectively; do not substitute list-order glyphs such as `SortAscending`/`SortDescending`. Sort-direction icons describe data order, so they do not mirror in RTL. Use the table library's next-order/toggle APIs instead of maintaining a second sorting state.
 
 Choose and document whether the product supports one sort or Shift-assisted multi-sort. When multi-sort is enabled, show the sort priority number and let each sorted column return to `none`. Define null placement and the initial direction per data type explicitly; dates and numbers often begin descending, while names often begin ascending.
 
-Sorting a server-backed table resets to page 1, updates the URL, and issues one new query. Do not sort only the currently loaded page.
+Sorting updates the client row model immediately and may update the URL for shareability, but it must not issue a request, enter a fetching state, or render skeleton rows. Preserve the current page unless the product explicitly chooses a local page reset; either choice remains entirely client-side.
 
 ## Pagination footer
 
@@ -115,13 +167,13 @@ Every paginated table footer contains:
 3. first, previous, numbered/current, next, and last controls when total pages are known;
 4. disabled states at boundaries and during unsafe transitions, with visible and accessible current-page state.
 
-The internal TanStack page index is zero-based; shared/API `page` is one-based unless the backend contract explicitly differs. Changing page size, search, filters, grouping, or sorting returns to the first page. Keep previous rows visible during background page transitions and show a restrained fetching indicator; initial loading may use table-shaped skeletons.
+The internal TanStack page index is zero-based; shared/API `page` is one-based unless the backend contract explicitly differs. Changing page size, search, filters, or grouping normally returns to the first page. On a page or other server-owned row-set query transition, keep the real header, replace only `<tbody>` with page-size-matched cell skeletons, and disable the per-page select plus every pagination control. Client sorting is not a row-set request and never invokes that loading treatment. Initial loading renders header, body, and pagination skeletons using the real column and footer geometry. Ordinary same-query background refreshes retain previous rows with a restrained fetching indicator. Follow [skeleton-loaders.md](skeleton-loaders.md).
 
 On narrow screens, preserve metadata, per-page choice, previous/current/next, and access to first/last when meaningful. Do not compress all page numbers into tiny targets.
 
 ## URL as shareable table state
 
-Treat validated URL search parameters as the shareable source of truth for query-driving state:
+Treat validated URL search parameters as the shareable source of truth for table state. Only server-owned values belong to the data request/query key; client sorting remains URL-shareable without becoming query-driving:
 
 ```text
 ?q=allianz&page=2&perPage=20&sort=added.desc&status=new&owner=unassigned
@@ -137,7 +189,7 @@ At minimum synchronize:
 - page and page size;
 - grouping/view mode when it materially changes the dataset.
 
-Back/forward navigation must rehydrate table state without loops. Prefer replace navigation for each debounced keystroke and canonical cleanup; use the project's routing convention for discrete changes so history remains useful rather than noisy. Reset page before serialization when search, filters, sort, or page size changes.
+Back/forward navigation must rehydrate table state without loops. Prefer replace navigation for each debounced keystroke and canonical cleanup; use the project's routing convention for discrete changes so history remains useful rather than noisy. Reset page before serialization when search, filters, or page size changes. Client sorting may preserve the current page and must not trigger a server request when its URL value changes.
 
 Column width, resize drag state, hover, open menus, and drawer drafts do not belong in the share URL. Persist durable personal table preferences separately in local/account settings.
 
@@ -148,19 +200,18 @@ Use a typed Axios instance for base URL, credentials, headers, error normalizati
 Canonical flow:
 
 ```tsx
-const queryState = {
+const serverQueryState = {
   q,
   filters,
-  sorting,
   pageIndex,
   pageSize,
 }
 
 const tableQuery = useQuery({
-  queryKey: ['admin', 'letters', queryState],
+  queryKey: ['admin', 'letters', serverQueryState],
   queryFn: async ({ signal }) => {
     const response = await api.get<TableResponse<Letter>>('/letters', {
-      params: toApiParams(queryState),
+      params: toApiParams(serverQueryState),
       signal,
     })
     return response.data
@@ -169,12 +220,13 @@ const tableQuery = useQuery({
 })
 ```
 
-Every value read by the query function that changes the response belongs in the deterministic query key. Pass TanStack Query's `AbortSignal` directly to Axios so obsolete filter/sort/search requests cannot overwrite newer state. Treat cancellation as normal control flow, not a user-facing error.
+Every value read by the query function that changes the response belongs in the deterministic query key. Client sorting is deliberately absent because it must not change the server response. Pass TanStack Query's `AbortSignal` directly to Axios so obsolete filter/search/page requests cannot overwrite newer state. Treat cancellation as normal control flow, not a user-facing error.
 
 Distinguish:
 
-- `isPending`: no usable result yet—render table-shaped skeletons;
-- background fetching: retain previous rows, show a small progress cue, and keep safe controls operable;
+- `isPending`: no usable result yet—render strict header/body/pagination skeletons using the real table geometry;
+- `isPlaceholderData && isFetching`: a new query is using old cached rows—render body-only skeleton rows and disable pagination/per-page controls;
+- same-query background fetching: retain previous rows, show a small progress cue, and keep safe controls operable;
 - partial/stale error: retain safe prior data with timestamp plus retry;
 - terminal error with no data: render the in-table error state;
 - mutation pending/success/failure: update or invalidate the exact affected query scopes and preserve selection/focus deliberately.
@@ -270,8 +322,9 @@ Use tabular numerals for aligned metrics and table number columns. Do not fix te
 
 ## Acceptance checks
 
+- Data-backed skeletons reproduce at least 90% of final geometry; table initial load includes header/body/pagination, and row-set transitions skeletonize only the body while pagination is disabled.
 - Toolbar search, drawer draft/apply/clear, active chips, export, and primary action work by keyboard and on mobile.
-- Table surface is gutterless/bordered, sort is `none → asc → desc → none`, and resizing/pinning work in LTR and RTL.
+- Table surface is gutterless/bordered; client sorting covers the complete loaded filtered dataset with no request/loading state, cycles `none → asc → desc → none`, maps icons to up/down pair → up arrow → down arrow, and resizing/pinning work in LTR and RTL.
 - Pagination shows accurate metadata, per-page selection, and boundary-safe controls.
 - Copying a URL and opening it in another authorized admin session reproduces the query view.
 - Rapid query changes cancel obsolete Axios requests; stale responses never replace newer results.

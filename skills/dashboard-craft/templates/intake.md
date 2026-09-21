@@ -47,6 +47,8 @@ Use only the parts not already answered. Record uncertain answers as assumptions
 - Supported and likely future locales:
 - Languages and writing directions:
 - Locale selection and persistence:
+- Locale-selector presentation: compact code + flag/name menu for a small fixed set, or searchable selector/dialog for a larger set:
+- Product-approved language labels, locale codes, representative flags, and language/country ambiguity policy:
 - Account/report/viewer time-zone ownership:
 - Calendar, week start, fiscal calendar, and numbering systems:
 - Currencies and conversion rules:

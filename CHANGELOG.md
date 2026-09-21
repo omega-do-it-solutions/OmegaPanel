@@ -4,7 +4,20 @@ All notable changes to Dashboard Craft are documented here. The project follows 
 
 ## Unreleased
 
+## 0.2.0 - 2026-09-22
+
 ### Added
+
+- A compact locale-selector contract for small fixed language sets: uppercase current-code trigger, product-approved decorative flags plus visible names, selected-state menu semantics, complete keyboard/typeahead/dismissal behavior, RTL-safe logical positioning, persistence/state preservation, and a searchable fallback for larger catalogs.
+- The independently installable `code-quality` skill for task-scoped decomposition, separation of concerns, project-fit placement, deliberate code splitting, and an Onomis-derived React/TypeScript fallback structure without unsolicited refactors.
+- A single-surface startup-loader lifecycle that stays visible through session restoration, startup redirects, and the initial lazy route, suppresses duplicate framework loaders, keeps the application root busy/inert, and uses the Hub-style three-dot 0.6 s heartbeat.
+- A stricter breadcrumb-led page-shell rule that prohibits generic eyebrow/title/description/action heroes and keeps table controls inside the table card that owns them.
+- A client-owned table-sorting contract: load the complete filtered sortable dataset, sort before pagination, exclude sort from server requests/query keys, and never show a loading state for sort changes.
+- A 250 ms overlay-motion contract: transform-only logical inline-end slide transitions for compact drawers, fade/zoom transitions and backdrop fading only for dialogs, exit-presence handling, focus/scroll restoration, RTL mirroring, and reduced-motion behavior.
+- A strict skeleton-loader contract requiring at least 90% resolved-layout fidelity, complete initial table header/body/pagination skeletons, body-only row-set transitions, and disabled pagination during replacement requests.
+- A framework-neutral initial-app-loader contract for static pre-mount branding, heartbeat indicators, theme-flash prevention, reduced motion, mount-time removal, and bootstrap failure handling.
+- A cross-framework custom-control contract covering packaged select boxes (React Select, Vue Multiselect, Svelte Select, Kobalte Select, and ng-select), locally styled semantic checkboxes/radios/switches, accessible single/dual range sliders, theme tokens, and drawer/portal behavior.
+- Explicit admin-table guidance for separate card headers and toolbars, server-owned complete-result CSV export, shared add/edit drawers for small forms versus standalone pages for large operations, fixed up/down-pair → up → down sort-state icons, and Phosphor Icons as the new-React-project default.
 
 - Cross-agent installation and invocation guidance for Codex, Claude Code, Cursor, and compatible Agent Skills clients.
 - One-command installation through the cross-agent `skills` CLI, plus native manual fallbacks.

@@ -42,6 +42,9 @@ Worldwide readiness is a release gate within dashboard quality, not a separate o
 ## Switching, search, sort, and export
 
 - [ ] Locale selection, persistence, route/account scope, loading, and fallback are defined.
+- [ ] A small fixed locale set uses the compact code-trigger plus flag/name menu pattern; a large/searchable locale set uses a scalable selector instead.
+- [ ] The locale trigger exposes its current language and popup state; the menu has semantic selected state, full keyboard/typeahead behavior, outside/Escape dismissal, and focus restoration.
+- [ ] Representative flags are decorative and product-approved; language names remain visible, and language/country ambiguity has an explicit fallback.
 - [ ] Table URL parameters store stable IDs/ISO values rather than localized labels or formatted dates/numbers.
 - [ ] Switching preserves focus, filters, unsaved work, and route where appropriate.
 - [ ] Search normalization and locale-aware collation match user expectations.

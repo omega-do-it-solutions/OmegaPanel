@@ -99,6 +99,20 @@ Define:
 - fallback chain for missing messages/content and how missing keys are detected;
 - telemetry that records locale without collecting unnecessary personal data.
 
+### Compact header locale selector
+
+For a small fixed set—normally two to six locales—use a compact locale menu in the global header instead of a permanently wide select:
+
+- The trigger displays the current uppercase language code, such as `EN`, `DE`, or `FA`, in a normal button-sized target. Its accessible name includes the current language, and it exposes popup/expanded state.
+- The popup opens below the trigger at logical inline-end. Each row contains a decorative representative flag plus a readable product-approved language name, and the selected row uses both semantic checked/current state and a clear primary-soft visual treatment.
+- A reference three-locale presentation is `🇺🇸 English`, `🇩🇪 German`, and `🇮🇷 Farsi`, with `EN`/`DE`/`FA` trigger codes, when those market associations and English display names are explicitly approved by the product.
+- A flag never replaces the text label or accessible name. Languages and countries are not one-to-one: omit the flag, use a neutral language mark, or let the user choose region separately when a representative country would be misleading.
+- On open, focus the selected row. Support Arrow Up/Down with wrapping, Home/End, typeahead, Enter/Space selection, Escape dismissal with trigger focus restoration, Tab dismissal, outside-pointer dismissal, and immediate persisted switching.
+- Switching preserves the current route, filters, unsaved work, and useful focus context. It must update `lang`, `dir`, formatting, messages, and request locale without reloading the app.
+- Position and spacing use logical properties so the popup mirrors in RTL; flags and letter codes do not mirror. Keep the popup within the viewport and above the application shell.
+
+When the locale set is larger, user-configurable, searchable, or region-heavy, use a searchable packaged selector or dedicated locale dialog instead of stretching this compact menu pattern.
+
 Never show a raw key to end users. A safe fallback is explicit and observable to developers. Do not silently fall back across writing direction without testing the resulting mixed UI.
 
 ## Search, sort, and export

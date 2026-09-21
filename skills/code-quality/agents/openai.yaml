@@ -1,0 +1,4 @@
+interface:
+  display_name: "Code Quality"
+  short_description: "Build maintainable code that fits the project"
+  default_prompt: "Use $code-quality to implement this task with focused modules, clear ownership, and the repository's existing structure."

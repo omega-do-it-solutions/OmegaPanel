@@ -59,16 +59,16 @@ Keep raw values separate from display strings. Never concatenate translated frag
 
 Order content by user decision priority, not by available widgets. For admin pages inside an application shell, default to:
 
-1. breadcrumb and current scope, without a duplicate visible page title or description;
+1. breadcrumb and current scope, without a duplicate visible page title, eyebrow/kicker, slug-like label, description, or detached action row;
 2. optional stat cards only when they support a decision;
 3. the primary data/action surface such as a table, form, editor, map, or analysis;
 4. diagnostics and secondary detail when needed.
 
-Preserve one programmatic page heading, normally a visually hidden `h1` matching the current breadcrumb item. When the task requires explanatory copy or a different hierarchy, document the exception instead of mechanically suppressing useful content.
+Preserve one programmatic page heading, normally a visually hidden `h1` matching the current breadcrumb item. Do not generate a reusable authenticated-page hero/header made from an eyebrow or slug-like label, oversized title, generic description, and actions aligned at the opposite side. Breadcrumb-led dashboard/admin pages must omit that pattern by default. Put search, filters, export, add/create, and other content actions inside the card, table toolbar, form section, chart header, or other region they directly control. A visible page introduction is an explicit exception only when it conveys necessary task instructions or object identity that the breadcrumb and primary content cannot; document that reason and do not attach unrelated surface actions to it.
 
 Give every region a purpose. Prefer fewer, stronger sections to a wall of cards. Preserve filter context in URLs when useful, and make the active scope visible in the breadcrumb or adjacent scope control.
 
-Read [references/dashboard-design.md](references/dashboard-design.md) when choosing layout, stat cards, tables, filters, density, responsive behavior, or states. Read [references/application-shell-and-forms.md](references/application-shell-and-forms.md) for the page shell, sidebar, and form-validation contract. For a React implementation with interactive server-backed tables, also read [references/react-dashboard-stack.md](references/react-dashboard-stack.md).
+Read [references/dashboard-design.md](references/dashboard-design.md) when choosing layout, stat cards, tables, filters, density, responsive behavior, or states. Read [references/application-shell-and-forms.md](references/application-shell-and-forms.md) for the page shell, sidebar, and form-validation contract. Read [references/initial-app-loader.md](references/initial-app-loader.md) when a branded loader must cover bootstrap through the first usable route. Read [references/skeleton-loaders.md](references/skeleton-loaders.md) whenever data-backed regions need post-mount loading placeholders. Read [references/form-controls.md](references/form-controls.md) whenever the product contains selects, checkboxes, radio groups, switches, or range sliders. For a React implementation with interactive server-backed tables, also read [references/react-dashboard-stack.md](references/react-dashboard-stack.md).
 
 ### 4. Choose components and visualizations by task
 
@@ -93,6 +93,10 @@ Preserve the primary decision and action on small screens. Do not shrink a deskt
 
 The collapsed sidebar preview expands from logical inline-start as an overlay and must not reflow the main content or overwrite the persisted collapsed preference. Keyboard focus must provide an equivalent to hover. On narrow/touch layouts, use an accessible navigation drawer instead. Follow [references/application-shell-and-forms.md](references/application-shell-and-forms.md).
 
+Dialogs and drawers animate both entry and exit over about 250 ms. Drawer panels use transform-only sliding from and back to logical inline-end with the same linear timing function in both directions; never fade the drawer panel. Fade the drawer backdrop in over the same 250 ms on open, keep it visually steady during close, and remove it after slide-out. Centered dialogs fade and zoom between roughly 96% and 100% scale, with their modal backdrop fading on both open and close. Keep drawers compact by default (about 28 rem, with 24 rem small and 32 rem large variants) and use full width only on narrow screens. Keep exiting overlays mounted and non-interactive until motion completes, then restore focus and background scrolling. Reduced-motion mode completes the state change nearly instantly without spatial movement. Follow [references/application-shell-and-forms.md](references/application-shell-and-forms.md).
+
+Treat destructive confirmation as a distinct compact alert-dialog variant rather than a content-modal layout. Use a centered title and short consequence message, no header divider or close icon, and equal-width Cancel/destructive actions; initially focus Cancel. Keep forms and multi-step decisions in the ordinary dialog pattern. Follow [references/application-shell-and-forms.md](references/application-shell-and-forms.md).
+
 ### 6. Specify the complete state model
 
 Cover the page and each independently loaded region:
@@ -103,7 +107,9 @@ Cover the page and each independently loaded region:
 - unauthorized, forbidden, redacted, and role-limited actions;
 - success, destructive confirmation, optimistic update, conflict, and undo where appropriate.
 
-Loading placeholders should preserve layout. Errors should retain safe context and offer a useful next step. Never confuse “0” with “not available.”
+Loading placeholders must reproduce at least 90% of the resolved region's geometry, including responsive grid, padding, internal divisions, repeated-item count, and stable control footprints. Initial table skeletons include header, cell-shaped body rows, and pagination; page changes retain the header, skeletonize only the body, and disable page-size plus pagination controls. Errors should retain safe context and offer a useful next step. Never confuse “0” with “not available.” Follow [references/skeleton-loaders.md](references/skeleton-loaders.md).
+
+When startup itself can be visible, use exactly one application boot surface. Render it in static HTML outside the framework root and keep it visible while required bootstrap work, session restoration, startup redirects, and the first lazy route resolve. Remove it only after the final initial route has committed; do not expose a second framework spinner between boot stages. Never simulate readiness with a timer. Follow [references/initial-app-loader.md](references/initial-app-loader.md).
 
 ### 7. Integrate worldwide readiness into each decision
 
@@ -115,6 +121,8 @@ Apply the rules in [references/internationalization.md](references/international
 - logical layout properties, mirrored navigation/spatial icons, non-mirrored data/order/media, bidi isolation for mixed-direction content, and keyboard order;
 - locale switching, persistence, URL or account scope, loading, fallback, and preservation of in-progress work;
 - locale-aware collation, search, export, CSV delimiters/encoding, and QA with pseudo-locales plus representative scripts.
+
+For a small fixed locale set, prefer a compact global-header locale control: an uppercase current-locale code opens a flag-and-language menu with a clear selected state. Treat it as an accessible command menu rather than a form select, preserve route and in-progress state when switching, and move to a searchable selector when the supported set is too large to scan. Follow [references/internationalization.md](references/internationalization.md) for the complete behavior and the flag/language caveat.
 
 Do not assume English labels, Gregorian dates, Latin digits, one currency, left-to-right layout, or the viewer's local time zone.
 
@@ -132,16 +140,19 @@ Follow the repository's framework, package manager, routing, data, and design-sy
 
 Forms use two-phase validation: validate only on the first submit attempt, then revalidate changed fields on input while continuing to validate the whole form on submit. In React, React Hook Form can express this with `mode: 'onSubmit'` and `reValidateMode: 'onChange'`; in Vue, VeeValidate can use `submitCount` or an attempted flag to switch input validation on after the first attempt. The interaction contract, accessible error handling, and focus behavior apply in every framework; see [references/application-shell-and-forms.md](references/application-shell-and-forms.md).
 
+Product controls must not expose browser-default select, checkbox, radio, switch, or range styling. Use a maintained framework package behind one local design-system wrapper for select boxes; use locally styled semantic inputs or accessible headless primitives for checkbox, radio, switch, and single/dual range controls. Preserve native form and keyboard semantics behind the custom visuals. Follow the package defaults, state model, drawer/portal behavior, accessibility contract, and customization rules in [references/form-controls.md](references/form-controls.md).
+
 For React + TypeScript + Tailwind implementations, use these profile defaults unless the existing project has a different approved standard:
 
-- TanStack Table for tables, including server-controlled filtering, three-state removable sorting, pagination, column resizing, logical start/end pinning, visibility, ordering, selection, and stable row IDs;
-- a toolbar directly above the table, with search, applied-filter chips, filter drawer, export, and primary actions;
+- TanStack Table for tables, including server-controlled filtering where needed, client-side three-state removable sorting over the complete loaded filtered dataset, pagination, column resizing, logical start/end pinning, visibility, ordering, selection, and stable row IDs; interactive sort changes never call the server or show a loading state;
+- a distinct card header retaining the table title/description, followed with deliberate spacing by a toolbar whose start side contains search and whose end side contains filter, server-owned full-result export, and primary add/create actions;
 - a gutterless bordered table card whose toolbar and pagination footer have their own padding while the table reaches the card edges;
 - pagination containing range/total metadata, a per-page select, and first/previous/page/next/last controls;
-- URL query parameters as the shareable source of truth for query-driving search, filters, sorting, page, and page size;
-- Axios inside TanStack Query for server-backed tables, with the canonical table state in the query key and `AbortSignal` passed to Axios;
+- URL query parameters as the shareable source of truth for search, filters, client sorting, page, and page size;
+- Axios inside TanStack Query for server-backed table data, with only server-owned state in the query key, client sorting excluded from requests/query keys, and `AbortSignal` passed to Axios;
 - ApexCharts for charts and KPI sparklines/radial indicators;
 - Day.js with localized-format, UTC, and timezone support for display/manipulation while preserving date-only and instant semantics;
+- Phosphor Icons for a new React dashboard unless the repository already has an established icon system; sortable headers use an up/down arrow pair when unsorted, a single up arrow when ascending, and a single down arrow when descending;
 - Inter for Latin-script UI and Vazirmatn for Persian UI, plus script-appropriate fallbacks for other supported writing systems.
 
 Format default English/Latin dashboard numbers with comma grouping (for example `12,480`) through `Intl.NumberFormat`; never hard-code separators into raw values, because other locales may require different grouping. Use localized Day.js formats (`ll`, `lll`, `LT`) for human display and ISO values for URLs/APIs.

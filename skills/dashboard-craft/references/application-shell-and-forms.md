@@ -2,6 +2,8 @@
 
 Read this reference when the dashboard includes persistent navigation, page framing, forms, or responsive shell behavior. The rules describe behavior, not a specific framework or component library.
 
+When the application needs a branded pre-mount loading surface, follow [initial-app-loader.md](initial-app-loader.md). Keep that static boot lifecycle separate from page, route, table, and background-refresh loading states inside the mounted shell.
+
 ## Page structure
 
 For dashboard and admin pages inside the product shell, use this default reading order:
@@ -10,9 +12,11 @@ For dashboard and admin pages inside the product shell, use this default reading
 2. optional stat cards, only when they help the user judge health, volume, or change;
 3. the primary data or action surface, such as a table, form, editor, map, or chart-led analysis.
 
-The breadcrumb is the visible page identity. Do not repeat it with a separate visible page title or descriptive paragraph unless the task genuinely needs explanatory content. Preserve a single programmatic page heading—normally a visually hidden `h1` matching the current breadcrumb label—so the document still has a clear accessible heading. Mark the current breadcrumb item with appropriate current-page semantics.
+The breadcrumb is the visible page identity. In an authenticated dashboard/admin shell, do not add a default page hero composed of an eyebrow/kicker or slug-like label, oversized title, generic description, and right-aligned actions. Do not create a reusable `PageHeader`-style component that makes this pattern the default. Preserve a single programmatic page heading—normally a visually hidden `h1` matching the current breadcrumb label—so the document still has a clear accessible heading. Mark the current breadcrumb item with appropriate current-page semantics.
 
-Keep global search and account/theme/locale actions in the application header. Keep page-specific search, filters, export, and creation actions with the content they affect. Do not add stat cards merely to fill space; omit them when they do not change a decision.
+Keep global search and account/theme/locale actions in the application header. Keep page-specific search, filters, export, creation, range, and view actions inside the table/card/form/chart region they affect; never float table actions in a decorative page-introduction row. Preserve a card header's useful local title and concise description as a separate region from its toolbar. A visible page introduction is allowed only when it supplies necessary task instructions, onboarding, or object identity that cannot be carried by the breadcrumb and primary surface; record that exception rather than adding filler copy. Do not add stat cards merely to fill space; omit them when they do not change a decision.
+
+For a small supported locale set, render the header locale action as a compact uppercase locale-code button opening a flag-and-language menu. Keep its footprint comparable to the adjacent theme/account actions, anchor the menu at logical inline-end, and preserve header layout when translated copy expands. Do not show a globe/translate icon as the only indication of the current locale. Follow [internationalization.md](internationalization.md) for menu semantics, keyboard behavior, label/flag policy, persistence, and the larger-locale-set fallback.
 
 ## Sidebar state model
 
@@ -33,6 +37,35 @@ Use logical inline-start positioning so the shell mirrors correctly in RTL. Dire
 On narrow screens, replace the persistent sidebar/rail with a labeled navigation trigger and modal drawer or sheet. Trap focus while open, lock background scrolling, support `Escape`, and restore focus to the trigger. Do not use the desktop hover-preview behavior on touch-only layouts.
 
 Motion should be short and spatially consistent. Respect `prefers-reduced-motion` by removing or minimizing width/transform animation while keeping state changes understandable.
+
+## Dialog and drawer motion
+
+Animate overlay entry and exit; do not animate only the opening state and remove the node immediately on close.
+
+- Use a 250 ms default duration for an animated panel and its backdrop animation. A narrow 200–300 ms adjustment is acceptable when an established product motion scale already exists, but avoid slow theatrical motion or abrupt sub-150 ms movement.
+- A drawer slides along the inline axis from logical inline-end on entry and returns to inline-end on exit. Animate only the panel's transform and use the same `linear` timing function in both directions; do not fade the drawer panel. The direction therefore mirrors in RTL without changing DOM or keyboard order.
+- A centered dialog/modal fades and zooms from approximately `scale(.96)` to `scale(1)` on entry, then reverses on exit. Do not use large zooms, bounce, overshoot, or rotation.
+- Fade a drawer backdrop in over the same 250 ms as the entering panel. Do not fade it out: keep it visually steady while the panel closes, then remove it after slide-out completes.
+- Fade a modal backdrop in and out over the same duration as the modal panel.
+- Keep desktop drawers compact: use approximately 24 rem for a small drawer, 28 rem by default, and 32 rem for a larger bounded form. Use full viewport width on narrow screens, but do not let routine filters or small forms consume an oversized share of a desktop viewport.
+- Keep the overlay mounted through its exit interval. Mark the closing tree non-interactive and hidden from assistive technology, then unmount it, unlock background scrolling, and restore focus to the invoking control after the exit completes.
+- Route close-button, Cancel, backdrop, `Escape`, successful-submit, and programmatic dismissal through the same exit-presence path. Guard against duplicate close requests.
+- Under `prefers-reduced-motion: reduce`, remove spatial transforms and finish the transition nearly immediately; never impose a 250 ms invisible wait before focus restoration.
+
+Preserve the standard modal requirements throughout the animation: a labeled dialog, focus containment while open, `Escape` dismissal, blocked background interaction, and reliable focus restoration.
+
+## Destructive confirmation dialogs
+
+A destructive confirmation is a short blocking decision, not a content modal. Give it a dedicated compact treatment while preserving the same backdrop and modal entry/exit behavior:
+
+- Use a bounded surface around 24 rem wide with generous rounding and no header/footer dividers.
+- Center a concise question-style title and one short consequence message. Name the affected object in the message when that prevents ambiguity.
+- Omit the header close icon. Provide exactly two prominent actions beneath the message: a quiet neutral Cancel action and a solid danger-colored confirm action, with equal width and a narrow gap.
+- Use `role="alertdialog"`, label it from the title, describe it from the consequence text, and initially focus Cancel or the least destructive action. `Escape` and backdrop dismissal are equivalent to Cancel; only the explicit destructive button performs the action.
+- Disable repeat submission and communicate the pending state on the destructive action. If the operation fails, retain the dialog and show a concise accessible error without replacing the consequence text.
+- Keep localized labels short when possible. At high text expansion or when labels cannot fit safely side by side, allow the action row to stack without changing action order or initial focus.
+
+Do not use this compact variant when the user must enter text, review substantial detail, select options, or complete multiple steps; use the ordinary content-dialog or standalone-page pattern instead.
 
 ## Two-phase form validation
 
@@ -75,6 +108,10 @@ useForm({
 For Vue, VeeValidate can use `submitCount > 0` (or an equivalent attempted flag) to enable per-field input validation only after the first submission while `handleSubmit` continues validating the whole form. Configure triggers per field/component when the global defaults would affect unrelated forms.
 
 Other ecosystems should implement the same state machine with their established form and schema libraries. The behavioral contract is mandatory; React Hook Form, VeeValidate, and Zod are suggested implementations, not framework requirements.
+
+## Custom controls
+
+Forms must use design-system controls rather than visible browser-default selects, checkboxes, radios, switches, or range inputs. Preserve semantic inputs behind custom visuals where possible, and use a maintained framework package for select/combobox behavior. Read [form-controls.md](form-controls.md) for package selection, state styling, labels/errors, portal behavior, radio grouping, switch semantics, and single/dual slider interaction.
 
 Primary documentation:
 

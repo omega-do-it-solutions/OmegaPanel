@@ -34,7 +34,7 @@ Prefer a strong reading order. A card is not a semantic unit by itself; use a ca
 
 ### Application page shell
 
-For admin pages, let the breadcrumb serve as the visible page identity and avoid repeating it with a separate visible title and description. Keep one programmatic page heading, normally a visually hidden `h1` that matches the current breadcrumb item. The main sequence is breadcrumb → optional stat cards → table/form/other primary content. Omit stat cards when they do not help a user decide or act.
+For dashboard/admin pages, the breadcrumb is the visible page identity. Do not insert a generic page hero with an eyebrow/kicker or slug-like label, large repeated title, filler description, and detached right-side actions. Keep one programmatic page heading, normally a visually hidden `h1` that matches the current breadcrumb item. The main sequence is breadcrumb → optional useful stat cards → table/form/other primary content. Actions belong to the surface they operate on. Use a visible page introduction only when required task guidance or object identity cannot live in the breadcrumb or primary surface, and document the exception. Omit stat cards when they do not help a user decide or act.
 
 The desktop navigation has an expanded persistent state, a collapsed icon rail, and a collapsed hover/focus preview that overlays content without reflow. The mobile equivalent is a drawer rather than a hover interaction. Follow the detailed semantics, persistence, focus, RTL, and responsive rules in [application-shell-and-forms.md](application-shell-and-forms.md).
 
@@ -75,7 +75,7 @@ Show active filters in readable language. Make “clear,” default, and no-resu
 
 For expensive queries, use an Apply action; otherwise provide immediate updates with visible progress and stable layout. Announce result-count changes to assistive technology without excessive chatter.
 
-For table-heavy admin screens, use a toolbar directly above the table in the same bordered card. Put search at the start and filter/export/primary actions at the end; show applied filters as removable chips on a second toolbar row. Use an end-side filter drawer with draft values plus Clear all and Apply actions. Keep the toolbar and column headers visible in filtered-empty and error states so users can recover without losing context.
+For table-heavy admin screens, use a toolbar directly above the table in the same bordered card. Put search at the start and filter/export/primary actions at the end; never relocate them to a page hero or shell-level title row. Show applied filters as removable chips on a second toolbar row. Use an end-side filter drawer with draft values plus Clear all and Apply actions. Keep the toolbar and column headers visible in filtered-empty and error states so users can recover without losing context.
 
 ## Tables
 
@@ -96,7 +96,7 @@ Specify:
 - empty, partial, stale, and redacted cells;
 - export scope, raw/display value choice, locale, encoding, and timezone.
 
-Sortable headers cycle through none, ascending, descending, and none again. Sorting must be clearable, visible, and exposed through `aria-sort`; server-backed sorting applies to the complete filtered result, not only the loaded page. Paginated tables include range/total metadata, a per-page selector, and first/previous/current/next/last controls. URL parameters preserve shareable search, applied filters, sorting, page, and page size.
+Sortable headers cycle through none, ascending, descending, and none again. Map those states to a vertical up/down arrow pair, a single upward arrow, and a single downward arrow respectively; do not use list-order icons for ascending or descending. Sorting must be clearable, visible, exposed through `aria-sort`, and performed in the client over the complete loaded filtered result before pagination—not merely the visible page. A sort change must be immediate and must not issue a request or replace rows with skeletons. If the complete sortable dataset cannot be loaded safely, surface that constraint and obtain an explicit product exception instead of silently switching to server sorting. Paginated tables include range/total metadata, a per-page selector, and first/previous/current/next/last controls. URL parameters preserve shareable search, applied filters, sorting, page, and page size without making client sorting part of the server query.
 
 Support column resizing, logical start/end pinning, visibility, ordering, and row selection when useful. Persist personal column preferences separately from query-driving URL state. In RTL, pinned regions and resize direction follow logical direction rather than hard-coded left/right behavior.
 
@@ -131,7 +131,7 @@ Design state at two levels: page shell and independently loaded regions. Documen
 - permission-denied vs hidden capability;
 - optimistic updates, conflicts, retries, confirmation, and undo.
 
-Skeletons should approximate the final structure. Avoid indefinite spinners. Keep filter and navigation controls usable during background refresh when safe.
+Skeletons must reproduce at least 90% of the final region's geometry rather than merely approximate its outer rectangle. Share the final grid, padding, row heights, and structural divisions; use deterministic content-shaped bars. Follow [skeleton-loaders.md](skeleton-loaders.md), including its distinct initial-load, row-set-transition, and background-refresh behavior. Avoid indefinite spinners. Keep filter and navigation controls usable during background refresh when safe.
 
 ## Responsive behavior
 

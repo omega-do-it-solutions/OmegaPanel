@@ -20,6 +20,7 @@ Read this reference while defining dashboard structure, controls, data displays,
 - Move focus only for user-initiated context changes that require it; announce asynchronous updates instead of stealing focus.
 - After dialogs close, return focus to the invoking control when it still exists.
 - Define arrow-key, Home/End, Enter/Space, Escape, and typeahead behavior for composite widgets according to the chosen established pattern.
+- For a compact locale menu, use a button with popup/expanded state and a single-select menu pattern such as checked menu items. Focus the selected locale on open; support wrapping arrows, Home/End, typeahead, Enter/Space, Escape, Tab/outside dismissal, and trigger-focus restoration. Flags are decorative because the visible language name and accessible name carry meaning.
 - Keep focus order stable when filters, locale, permissions, or responsive layout change.
 - Do not make every chart mark a tab stop; offer efficient grouped navigation and a table alternative.
 - A collapsed sidebar's labeled preview must open for keyboard focus as well as pointer hover. `Escape` dismisses the preview, focus remains visible, and navigation never depends on hover alone.
