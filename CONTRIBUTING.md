@@ -1,6 +1,6 @@
-# Contributing to Dashboard Craft
+# Contributing to Omega Panel
 
-Thank you for improving Dashboard Craft. Contributions should strengthen one unified dashboard workflow; do not split worldwide readiness into a separate skill or optional package.
+Thank you for improving Omega Panel. Contributions should strengthen one unified dashboard workflow; do not split worldwide readiness into a separate skill or optional package.
 
 ## Development principles
 
@@ -22,7 +22,7 @@ Thank you for improving Dashboard Craft. Contributions should strengthen one uni
    node scripts/validate-repository.mjs
    ```
 
-   When working inside Codex's skill-development environment, also run its bundled `quick_validate.py` against `skills/dashboard-craft`.
+   When working inside Codex's skill-development environment, also run its bundled `quick_validate.py` against `skills/omega-panel`.
 
 5. Score the affected evaluation scenario with `evals/rubric.md`. Record evidence rather than awarding points from keyword presence.
 6. Verify links and scan for unfinished placeholders outside intentional templates.
@@ -52,7 +52,7 @@ This project uses semantic versioning for the skill package:
 ## Pull-request checklist
 
 - [ ] The change solves a concrete dashboard-agent problem.
-- [ ] The skill remains independently usable from `skills/dashboard-craft`.
+- [ ] The skill remains independently usable from `skills/omega-panel`.
 - [ ] Internationalization remains embedded in intake, design, implementation, and review.
 - [ ] Relevant examples, prompts, checks, and evaluations are updated.
 - [ ] The skill validator passes.

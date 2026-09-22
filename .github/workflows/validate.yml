@@ -1,4 +1,4 @@
-name: Validate Dashboard Craft
+name: Validate Omega Panel
 
 on:
   push:

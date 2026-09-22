@@ -1,50 +1,153 @@
 <p align="center">
-  <img src="skills/dashboard-craft/assets/dashcraft-logo.png" alt="DashCraft logo" width="176" height="176">
+  <img src="skills/omega-panel/assets/omega-panel-logo.png" alt="Omega Panel logo" width="184" height="184">
 </p>
 
-<h1 align="center">DashCraft</h1>
+<h1 align="center">Omega Panel</h1>
 
 <p align="center">
-  Portable Agent Skills for production dashboard craft and project-fitting code quality.
+  <strong>Give your coding agent a production dashboard playbook.</strong>
 </p>
 
 <p align="center">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-2563EB.svg" alt="MIT license"></a>
+  Plan, build, and review polished admin panels in the stack you already use.
 </p>
 
-DashCraft packages dashboard information architecture, application shells, tables, filters, forms, charts, responsive behavior, accessibility, and worldwide readiness into a reusable workflow. Its companion `code-quality` skill keeps new implementation work cohesive without authorizing unsolicited refactors or forcing one folder structure onto established projects. Both follow the portable `SKILL.md` Agent Skills format for Codex, Claude Code, Cursor, and other compatible coding agents.
+<p align="center">
+  <img src="https://img.shields.io/badge/Agent%20Skills-compatible-0F172A.svg" alt="Agent Skills compatible">
+  <img src="https://img.shields.io/badge/Codex-supported-2563EB.svg" alt="Codex supported">
+  <img src="https://img.shields.io/badge/Claude%20Code-supported-D97706.svg" alt="Claude Code supported">
+  <img src="https://img.shields.io/badge/Cursor-supported-111827.svg" alt="Cursor supported">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-10B981.svg" alt="MIT license"></a>
+</p>
 
-## Install
+---
 
-Install from GitHub with the cross-agent [`skills` CLI](https://github.com/vercel-labs/skills):
+## 👋 Meet Omega Panel
+
+Omega Panel is a portable Agent Skill for building dashboards and admin interfaces that are useful beyond the first screenshot. It gives compatible coding agents a shared workflow for information architecture, navigation, tables, filters, forms, charts, responsive behavior, accessibility, and worldwide readiness.
+
+It works with **Codex, Claude Code, Cursor, and other Agent Skills-compatible tools**. The skill is framework-neutral: it fits the repository you already have instead of forcing every project into React or another single stack.
+
+> ✨ **No runtime dependency or API key is required.** Omega Panel guides your agent; it does not become part of your production bundle.
+
+## ⚡ Quick start
+
+### 1. Install the skill
 
 ```bash
-npx skills add omega-do-it-solutions/DashCraft --skill dashboard-craft
+npx skills add omega-do-it-solutions/DashCraft --skill omega-panel
 ```
 
-Install the code-quality companion independently when a project needs implementation-boundary guidance without the dashboard workflow:
+The installer detects supported agents and lets you choose where to install the skill. A project installation is usually best for teams because it can be committed with the application.
+
+> 🔐 The repository is currently private. Installation requires repository access and authenticated Git credentials, or an available `GITHUB_TOKEN`.
+
+### 2. Ask your agent to use it
+
+```text
+$omega-panel Build an order-management dashboard in this repository.
+Use the existing stack and design system. Include responsive table behavior,
+filters, URL-backed state, loading and error states, accessibility, and RTL.
+```
+
+Use `/omega-panel` in Claude Code or Cursor. Compatible agents can also select the skill automatically when your request matches its purpose.
+
+### 3. Review the result
+
+```text
+$omega-panel Review this dashboard and rank issues by severity. Check the
+navigation shell, tables, forms, charts, responsive behavior, accessibility,
+internationalization, loading states, permissions, and failure states.
+```
+
+That is enough to get started. Everything below helps you use Omega Panel more deliberately.
+
+## ✨ What Omega Panel brings to a project
+
+| Area | What the skill helps your agent produce |
+| --- | --- |
+| 🧭 Structure | Breadcrumb-led admin pages, purposeful stat cards, clear primary content, and decision-first hierarchy |
+| 🗂 Navigation | Expanded, collapsed, hover/focus-preview, mobile drawer, and recursive nested navigation behavior |
+| 🔎 Data tables | Toolbars, search, filter drawers, clearable three-state sorting, pagination, resizing, pinning, and URL state |
+| 📝 Forms | Accessible controls and submit-first validation that switches to input revalidation after the first attempt |
+| 📈 Charts | Honest chart selection, ApexCharts guidance, smooth curves, restrained animation, and accessible alternatives |
+| 🌍 Global UX | Locale-aware copy, dates, time zones, numbers, currencies, fonts, RTL, search, sort, and export |
+| ♿ Accessibility | Semantic structure, keyboard behavior, focus management, contrast, reflow, announcements, and reduced motion |
+| 📱 Responsive UX | Explicit desktop, intermediate, mobile, zoom, text-expansion, and touch behavior |
+
+## 🧪 Try these prompts
+
+### Plan a new dashboard
+
+```text
+$omega-panel Plan a worldwide revenue dashboard for finance leaders.
+Cover desktop and mobile, roles, permissions, loading and failure states,
+accessibility, RTL, currencies, reporting time zones, and acceptance criteria.
+```
+
+### Implement inside an existing project
+
+```text
+$omega-panel Implement a customer operations dashboard in this repository.
+Preserve the current framework, routing, package manager, and design system.
+Add only the packages the feature actually needs.
+```
+
+### Refine an existing plan
+
+```text
+$omega-panel Refine this dashboard plan for a multilingual support team.
+Preserve accepted decisions and call out every changed assumption.
+```
+
+### Pair it with the code-quality companion
+
+```text
+$code-quality Add this page using the repository's current structure. Keep the
+page readable as composition, extract meaningful behavior, and do not refactor
+unrelated code.
+```
+
+Install the companion independently when you want implementation-boundary guidance without the full dashboard workflow:
 
 ```bash
 npx skills add omega-do-it-solutions/DashCraft --skill code-quality
 ```
 
-The installer detects supported agents and lets you choose the destination. The default project installation is best for teams because the installed skill can be committed with the application.
+---
 
-If this GitHub repository is private, the user must have repository access and authenticated Git credentials (or a `GITHUB_TOKEN` available in their environment). If the repository is made public, the same command works without authentication and can also be listed on [skills.sh](https://skills.sh/).
+## 🤖 Agent support
 
-Install globally for use across projects:
+| Agent | Project location | Personal/global location | Explicit invocation |
+| --- | --- | --- | --- |
+| Codex | `.agents/skills/omega-panel/` | `~/.agents/skills/omega-panel/` | `$omega-panel` |
+| Claude Code | `.claude/skills/omega-panel/` | `~/.claude/skills/omega-panel/` | `/omega-panel` |
+| Cursor | `.agents/skills/omega-panel/` or `.cursor/skills/omega-panel/` | `~/.cursor/skills/omega-panel/` | `/omega-panel` or `@omega-panel` |
+| Other Agent Skills clients | Usually `.agents/skills/omega-panel/` | Agent-specific | Agent-specific |
+
+The canonical skill uses portable `name` and `description` frontmatter. The optional `agents/openai.yaml` adds OpenAI-facing presentation metadata and is safely ignored by other clients.
+
+- [OpenAI documentation: build and install skills](https://developers.openai.com/es-419/docs/build-skills)
+- [Claude documentation: Agent Skills](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)
+- [Cursor documentation: Agent Skills](https://cursor.com/docs/skills)
+
+## 📦 Installation options
+
+### Install globally
+
+Use Omega Panel across all of your projects:
 
 ```bash
 npx skills add omega-do-it-solutions/DashCraft \
-  --skill dashboard-craft \
+  --skill omega-panel \
   --global
 ```
 
-Install non-interactively for Codex, Claude Code, and Cursor:
+### Install for several agents without prompts
 
 ```bash
 npx skills add omega-do-it-solutions/DashCraft \
-  --skill dashboard-craft \
+  --skill omega-panel \
   --global \
   --agent codex \
   --agent claude-code \
@@ -52,34 +155,17 @@ npx skills add omega-do-it-solutions/DashCraft \
   --yes
 ```
 
-Preview or run the skill without installing it:
+### Preview without installing
 
 ```bash
 npx skills use omega-do-it-solutions/DashCraft \
-  --skill dashboard-craft \
+  --skill omega-panel \
   --agent claude-code
 ```
 
-The skill itself has no runtime dependency, API key, or framework requirement. Its package recommendations apply only when an agent is implementing a dashboard that needs those capabilities.
+### Install manually
 
-## Agent support
-
-| Agent | Project location | Personal/global location | Explicit invocation |
-| --- | --- | --- | --- |
-| Codex | `.agents/skills/dashboard-craft/` | `~/.agents/skills/dashboard-craft/` | `$dashboard-craft` |
-| Claude Code | `.claude/skills/dashboard-craft/` | `~/.claude/skills/dashboard-craft/` | `/dashboard-craft` |
-| Cursor | `.agents/skills/dashboard-craft/` or `.cursor/skills/dashboard-craft/` | `~/.cursor/skills/dashboard-craft/` | `/dashboard-craft` or `@dashboard-craft` |
-| Other Agent Skills clients | Usually `.agents/skills/dashboard-craft/` | Agent-specific | Agent-specific |
-
-Each canonical skill uses only the required portable frontmatter fields, `name` and `description`. The optional `agents/openai.yaml` supplies Codex/ChatGPT presentation metadata and is safely ignored by other clients. Replace `dashboard-craft` with `code-quality` in the paths and invocation names above when using the companion skill.
-
-- [OpenAI documentation: build and install skills](https://developers.openai.com/es-419/docs/build-skills)
-- [Claude documentation: Agent Skills](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)
-- [Cursor documentation: Agent Skills](https://cursor.com/docs/skills)
-
-### Manual installation
-
-If `npx` is unavailable, clone this repository and copy the complete skill directory to the agent's native project location:
+If `npx` is unavailable, clone the repository and copy the complete skill directory:
 
 ```bash
 git clone git@github.com:omega-do-it-solutions/DashCraft.git
@@ -87,78 +173,50 @@ cd DashCraft
 
 # Codex, Cursor, and universal Agent Skills clients
 mkdir -p /path/to/project/.agents/skills
-cp -R skills/dashboard-craft /path/to/project/.agents/skills/dashboard-craft
+cp -R skills/omega-panel /path/to/project/.agents/skills/omega-panel
 
 # Claude Code
 mkdir -p /path/to/project/.claude/skills
-cp -R skills/dashboard-craft /path/to/project/.claude/skills/dashboard-craft
+cp -R skills/omega-panel /path/to/project/.claude/skills/omega-panel
 ```
 
-Copy the entire directory, not only `SKILL.md`; its references, templates, prompts, checklists, and logo are part of the package.
+Copy the entire directory—not only `SKILL.md`. The references, templates, prompts, checklists, and brand asset are part of the package.
 
-## Use
+## 🧠 How the skill works
 
-### Plan a dashboard
+Omega Panel chooses one of four modes from the user's request:
 
-```text
-$dashboard-craft Plan a worldwide revenue dashboard for finance leaders.
-Cover desktop and mobile, permissions, loading and failure states,
-accessibility, RTL, currencies, and reporting time zones.
-```
+1. **Plan** — turn requirements and data into an implementation-ready dashboard specification.
+2. **Implement** — build the approved experience in the repository's existing stack.
+3. **Review** — inspect a design or implementation and return evidence-backed findings by severity.
+4. **Refine** — update an existing plan while preserving accepted decisions and exposing changed assumptions.
 
-### Implement in the current stack
+The workflow connects product decisions to data contracts, information architecture, component behavior, responsive layout, implementation boundaries, accessibility, internationalization, QA, and acceptance criteria. Package suggestions are treated as a capability menu—not an install-everything list.
 
-```text
-$dashboard-craft Implement an order-management dashboard in this repository.
-Preserve the existing framework and design system. Add only the packages the
-feature needs.
-```
+## 🧰 Recommended implementation capabilities
 
-### Review an implementation
+Omega Panel can guide an agent toward the following tools when they match the selected ecosystem and the project does not already have an approved equivalent:
 
-```text
-$dashboard-craft Review this dashboard for information hierarchy, sidebar
-behavior, tables, URL state, form validation, charts, accessibility, responsive
-behavior, and internationalization. Rank findings by severity.
-```
+- **Tables and server state:** TanStack Table and TanStack Query
+- **HTTP:** Axios
+- **Charts:** ApexCharts
+- **Dates:** Day.js
+- **Validation:** Zod with React Hook Form, VeeValidate, or an ecosystem-native equivalent
+- **Internationalization:** i18next or the project's established solution
+- **Editors and rich content:** TipTap and Shiki
+- **Maps:** jsVectorMap and Leaflet
+- **Motion and UI utilities:** Motion, SimpleBar, Sonner, and Swiper
+- **Quality:** ESLint and Prettier
 
-In Claude Code or Cursor, replace `$dashboard-craft` with `/dashboard-craft`. Compatible agents may also select the skill automatically when a request matches its description.
+The React profile adds concrete guidance for complete-dataset client sorting, server-owned filters, URL query parameters, query cancellation, logical column pinning, ApexCharts, localized Day.js formatting, Inter for Latin scripts, and Vazirmatn for Persian. Other ecosystems should use equivalent native patterns.
 
-### Implement maintainable code without taking over the repository
-
-```text
-$code-quality Add this page using the project's current structure. Keep the
-page readable as composition, extract meaningful components and behavior, and
-do not refactor unrelated code.
-```
-
-The skill inspects the repository first, preserves established folders and conventions, and scopes quality improvements to the requested work. When a React/TypeScript project has no clear structure, it falls back to the feature-oriented `app`, `components/ui`, `components/shared`, `features`, `pages`, `hooks`, `lib`, `tokens`, and `types` model derived from the Onomis reference.
-
-## What the skill covers
-
-- decision-oriented information architecture and metric contracts;
-- breadcrumb-led admin pages with optional stat cards and primary content, without generic eyebrow/title/description/action heroes;
-- expanded, collapsed, and hover/focus-preview sidebar states, plus arbitrary-depth recursive navigation with shared per-depth disclosure behavior and leaf-only dot markers;
-- single-surface startup loaders that cover static boot through session restoration and the committed initial route, with theme-safe heartbeat indicators and no duplicate framework spinner;
-- strict data skeletons with at least 90% layout fidelity and table-specific initial/transition behavior;
-- table toolbars, filter drawers, complete-dataset client sorting with no sort requests, pagination, resizing, pinning, and URL state;
-- server-backed request ownership, loading, stale, empty, error, permission, and conflict states;
-- submit-first form validation followed by input revalidation;
-- framework-appropriate packaged select boxes plus custom checkbox, radio, switch, and single/dual range-control rules;
-- honest charts, accessible alternatives, and restrained motion;
-- locale-aware messages, dates, time zones, numbers, currencies, units, fonts, RTL, search, sort, and export;
-- compact global-header locale selectors for small fixed language sets, using current-code triggers, flag/name menus, accessible selected state, keyboard/typeahead behavior, persistence, and a scalable large-set fallback;
-- desktop, intermediate, mobile, zoom/reflow, keyboard, screen-reader, and reduced-motion behavior.
-
-The workflow is framework-neutral. ApexCharts, TanStack tools, TipTap, Axios, Day.js, i18next, jsVectorMap, Leaflet, Motion, Shiki, SimpleBar, Sonner, Swiper, Zod, React Hook Form, VeeValidate, React Select, Vue Multiselect, Svelte Select, Kobalte Select, ng-select, ESLint, and Prettier are a capability menu—not an install-all dependency list.
-
-## Repository map
+## 🗂 Repository map
 
 ```text
-skills/dashboard-craft/
+skills/omega-panel/
   SKILL.md                 Portable workflow and input/output contract
   agents/openai.yaml       Optional OpenAI UI metadata
-  assets/                  Installable brand assets
+  assets/                  Installable Omega Panel brand assets
   references/              Detailed guidance loaded when relevant
   templates/               Intake, plan, and review structures
   checklists/              Dashboard and worldwide-readiness release gates
@@ -169,14 +227,12 @@ skills/code-quality/
   references/              React/TypeScript fallback ownership structure
 examples/                  Worked analytics, operations, and SaaS examples
 evals/                     Scenarios, scoring rubric, and baseline
-scripts/                   Repository validation
+scripts/                   Dependency-free repository validation
 ```
 
-Only the skill directory selected during installation is installed. The examples and evaluation suite are maintainer resources.
+Only the selected skill directory is installed. Examples and evaluations are maintainer resources.
 
-## Validate
-
-Run the dependency-free repository checks:
+## ✅ Validate the repository
 
 ```bash
 node scripts/validate-repository.mjs
@@ -184,6 +240,14 @@ node scripts/validate-repository.mjs
 
 The validator checks the skill entrypoint, portable frontmatter, required package files, logo, and relative Markdown links. CI runs the same command on pushes and pull requests.
 
-## Contributing
+When developing inside Codex's skill environment, also run:
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for workflow and evaluation requirements and [CHANGELOG.md](CHANGELOG.md) for release notes. DashCraft is available under the [MIT License](LICENSE).
+```bash
+python3 /path/to/skill-creator/scripts/quick_validate.py skills/omega-panel
+```
+
+## 🤝 Contributing
+
+Read [CONTRIBUTING.md](CONTRIBUTING.md) for the contribution workflow and evaluation requirements. User-visible changes belong in [CHANGELOG.md](CHANGELOG.md).
+
+Omega Panel is available under the [MIT License](LICENSE).

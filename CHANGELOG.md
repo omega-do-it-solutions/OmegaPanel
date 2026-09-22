@@ -1,8 +1,13 @@
 # Changelog
 
-All notable changes to Dashboard Craft are documented here. The project follows semantic versioning.
+All notable changes to Omega Panel are documented here. The project follows semantic versioning.
 
 ## Unreleased
+
+### Changed
+
+- Renamed the project and primary Agent Skill from DashCraft / `dashboard-craft` to Omega Panel / `omega-panel`.
+- Replaced the project logo and refreshed the README around a friendly quick start followed by advanced installation and maintainer guidance.
 
 ## 0.3.0 - 2026-09-22
 
@@ -33,7 +38,7 @@ All notable changes to Dashboard Craft are documented here. The project follows 
 
 - Cross-agent installation and invocation guidance for Codex, Claude Code, Cursor, and compatible Agent Skills clients.
 - One-command installation through the cross-agent `skills` CLI, plus native manual fallbacks.
-- The DashCraft logo, installable OpenAI UI metadata, a dependency-free repository validator, and GitHub Actions validation.
+- The original DashCraft logo, installable OpenAI UI metadata, a dependency-free repository validator, and GitHub Actions validation.
 - A three-state application sidebar contract: expanded, collapsed icon rail, and hover/focus overlay preview, plus an accessible mobile drawer.
 - A breadcrumb-first page structure with optional decision-useful stat cards, primary content, and no duplicate visible title/description.
 - Submit-first form validation that switches to input revalidation after the first attempt, with React Hook Form and VeeValidate examples.
@@ -47,7 +52,7 @@ All notable changes to Dashboard Craft are documented here. The project follows 
 
 ### Added
 
-- The independently installable `dashboard-craft` Agent Skill.
+- The independently installable `dashboard-craft` Agent Skill, now named `omega-panel`.
 - A unified input/output contract spanning dashboard UX, implementation, accessibility, and worldwide readiness.
 - References for dashboard design, data visualization, internationalization, and accessibility.
 - Reusable intake, plan, review, prompt, and release-checklist resources.

@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url'
 
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url))
 const repositoryRoot = path.resolve(scriptDirectory, '..')
-const skillRoot = path.join(repositoryRoot, 'skills', 'dashboard-craft')
+const skillRoot = path.join(repositoryRoot, 'skills', 'omega-panel')
 const codeQualitySkillRoot = path.join(repositoryRoot, 'skills', 'code-quality')
 const failures = []
 
@@ -32,7 +32,7 @@ function collectMarkdownFiles(directory) {
 const requiredPaths = [
   'SKILL.md',
   'agents/openai.yaml',
-  'assets/dashcraft-logo.png',
+  'assets/omega-panel-logo.png',
   'references/application-shell-and-forms.md',
   'references/dashboard-design.md',
   'references/form-controls.md',
@@ -57,8 +57,8 @@ if (fs.existsSync(skillPath)) {
     fail('SKILL.md must begin with YAML frontmatter')
   } else {
     const metadata = frontmatter[1]
-    if (!/^name:\s*dashboard-craft\s*$/m.test(metadata)) {
-      fail('SKILL.md frontmatter name must be dashboard-craft')
+    if (!/^name:\s*omega-panel\s*$/m.test(metadata)) {
+      fail('SKILL.md frontmatter name must be omega-panel')
     }
     if (!/^description:\s*\S.+$/m.test(metadata)) {
       fail('SKILL.md frontmatter must include a non-empty description')
@@ -97,10 +97,10 @@ if (fs.existsSync(codeQualitySkillPath)) {
   }
 }
 
-const logoPath = path.join(skillRoot, 'assets', 'dashcraft-logo.png')
+const logoPath = path.join(skillRoot, 'assets', 'omega-panel-logo.png')
 if (fs.existsSync(logoPath)) {
   const signature = fs.readFileSync(logoPath).subarray(0, 8).toString('hex')
-  if (signature !== '89504e470d0a1a0a') fail('dashcraft-logo.png is not a valid PNG file')
+  if (signature !== '89504e470d0a1a0a') fail('omega-panel-logo.png is not a valid PNG file')
 }
 
 const markdownFiles = collectMarkdownFiles(repositoryRoot)
@@ -132,5 +132,5 @@ if (failures.length > 0) {
   process.exit(1)
 }
 
-console.log('DashCraft repository validation passed.')
+console.log('Omega Panel repository validation passed.')
 console.log(`Checked ${markdownFiles.length} Markdown files and ${relativeLinkCount} relative links.`)

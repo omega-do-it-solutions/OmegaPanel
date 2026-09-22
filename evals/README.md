@@ -1,11 +1,11 @@
-# Dashboard Craft evaluation suite
+# Omega Panel evaluation suite
 
 The suite checks whether the skill produces repeatable, implementation-ready dashboard guidance rather than generic UI advice.
 
 ## Run an evaluation
 
 1. Start with a clean agent conversation and make the repository available.
-2. Give the agent one prompt from `prompts/` and explicitly invoke the skill if the environment does not auto-select it: `$dashboard-craft` in Codex or `/dashboard-craft` in Claude Code and Cursor.
+2. Give the agent one prompt from `prompts/` and explicitly invoke the skill if the environment does not auto-select it: `$omega-panel` in Codex or `/omega-panel` in Claude Code and Cursor.
 3. Save the complete response. Do not supply the rubric during generation.
 4. Have a reviewer score observable evidence with `rubric.md`. Record missing evidence as zero; do not award points for merely naming a topic.
 5. A second reviewer resolves any category disagreement greater than two points.

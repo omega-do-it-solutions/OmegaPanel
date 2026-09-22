@@ -148,7 +148,7 @@ Color distinguishes current/prior/plan and positive/negative only with labels, d
 - Cache prior safe results during refresh; lazy-load chart implementation and message catalogs; cap high-cardinality segment results with server pagination.
 - Test semantic metric fixtures, DST boundaries, currency minor digits, plural categories, catalog fallback, bidi identifiers, permissions, partial responses, keyboard interactions, and responsive/visual states.
 
-See `react-tailwind/AnalyticsDashboard.tsx` for a deliberately small formatting/semantic shell sketch. Production table/query/chart behavior follows `skills/dashboard-craft/references/react-dashboard-stack.md`; the sketch is not a substitute for that full contract.
+See `react-tailwind/AnalyticsDashboard.tsx` for a deliberately small formatting/semantic shell sketch. Production table/query/chart behavior follows `skills/omega-panel/references/react-dashboard-stack.md`; the sketch is not a substitute for that full contract.
 
 ## 11. QA and acceptance criteria
 

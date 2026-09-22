@@ -1,4 +1,4 @@
-# Dashboard Craft scoring rubric (100 points)
+# Omega Panel scoring rubric (100 points)
 
 Score evidence and internal coherence, not the presence of keywords. Give partial credit only when the output makes a useful but incomplete decision.
 

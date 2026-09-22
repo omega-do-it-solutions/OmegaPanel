@@ -1,9 +1,9 @@
 ---
-name: dashboard-craft
+name: omega-panel
 description: Design, plan, implement, or review production dashboards and admin interfaces with information architecture, data visualization, responsive behavior, accessibility, and worldwide internationalization handled as one workflow. Use for analytics products, operations/admin tools, SaaS dashboards, and dashboard implementation reviews; do not use for generic marketing pages or a full component-library build.
 ---
 
-# Dashboard Craft
+# Omega Panel
 
 Turn product requirements and available data into clear, implementation-ready dashboard guidance. Treat dashboard quality and worldwide readiness as one design problem from intake through QA. Never defer internationalization to a separate future phase.
 
