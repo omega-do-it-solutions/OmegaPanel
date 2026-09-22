@@ -138,7 +138,7 @@ The skill inspects the repository first, preserves established folders and conve
 
 - decision-oriented information architecture and metric contracts;
 - breadcrumb-led admin pages with optional stat cards and primary content, without generic eyebrow/title/description/action heroes;
-- expanded, collapsed, and hover/focus-preview sidebar states;
+- expanded, collapsed, and hover/focus-preview sidebar states, plus arbitrary-depth recursive navigation with shared per-depth disclosure behavior and leaf-only dot markers;
 - single-surface startup loaders that cover static boot through session restoration and the committed initial route, with theme-safe heartbeat indicators and no duplicate framework spinner;
 - strict data skeletons with at least 90% layout fidelity and table-specific initial/transition behavior;
 - table toolbars, filter drawers, complete-dataset client sorting with no sort requests, pagination, resizing, pinning, and URL state;

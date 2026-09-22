@@ -4,6 +4,18 @@ All notable changes to Dashboard Craft are documented here. The project follows 
 
 ## Unreleased
 
+## 0.3.0 - 2026-09-22
+
+### Added
+
+- A recursive sidebar-navigation contract based on the Hub pattern: arbitrary `section | group | link` trees, a shared route/disclosure controller, pending and explicit route matching, deep active-ancestor opening, and behavioral coverage for navigation nested two or more group levels deep.
+
+### Changed
+
+- Expandable navigation now uses route-scoped active-collapse overrides, one manually open non-active group per depth, deeper-branch pruning, active/manual coexistence, compact-preview behavior, and accessible height-only transitions.
+- Dot markers are restricted to nested leaf destination links. Iconless expandable groups conditionally omit the marker element and its spacing instead of hiding a dot or reserving an empty slot.
+- The dashboard review checklist and planning template now require recursive navigation data, shared controller ownership, route-reset behavior, multi-level tests, and explicit disclosure-state acceptance criteria.
+
 ## 0.2.0 - 2026-09-22
 
 ### Added

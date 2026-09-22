@@ -73,6 +73,12 @@ Use during planning and again before handoff. A checked item should be supported
 
 - [ ] Wide, intermediate, and narrow layouts define priority and reflow.
 - [ ] Desktop navigation defines expanded, collapsed rail, and collapsed hover/focus preview states; preview overlays without changing content layout or the saved preference.
+- [ ] Navigation uses a recursive `section | group | link` model; groups can contain groups at arbitrary depth, sections do not increment disclosure depth, and one shared active/disclosure controller—not isolated group state—serves the complete tree.
+- [ ] A deeply active destination opens and marks every ancestor, pending/current paths plus explicit dynamic match patterns resolve correctly, and external links do not become route-active.
+- [ ] Expandable navigation uses a full-row parent disclosure, allows active ancestors to be collapsed for the current route, resets manual-open and active-collapse overrides on route change, and does not persist stale submenu state.
+- [ ] Manual disclosure is exclusive per depth: opening a sibling replaces the prior manual group and prunes deeper stale state, while different depths remain independent and the active path may coexist with one manual non-active group at the same depth.
+- [ ] Nested groups use a height-only reveal around 350 ms with a roughly 200 ms caret rotation; iconless group rows conditionally render neither a marker nor its gap, while only nested leaf destination links use dots. Submenus sit under logical-start padding without a branch line, use subordinate ghost active styling, leave collapsed children unfocusable, and reduce motion appropriately.
+- [ ] Tests cover a route nested at least two groups deep, active-ancestor collapse/reset, same-depth replacement, cross-depth independence, active/manual coexistence, compact/preview behavior, and disclosure accessibility.
 - [ ] Icon-only navigation has accessible names/tooltips, keyboard equivalence, active state, Escape behavior, logical RTL positioning, and a drawer replacement on narrow/touch layouts.
 - [ ] Mobile preserves the primary decision and action.
 - [ ] Dense tables/charts have an explicit narrow-screen pattern.

@@ -62,7 +62,9 @@
 - Expanded state:
 - Collapsed icon rail:
 - Collapsed hover/focus overlay preview:
-- Persisted preference, toggle, dismissal, and active/nested navigation:
+- Recursive navigation node model (`section | group | link`), supported depth, stable identity, explicit route-match rules, and external-link handling:
+- Shared active/disclosure controller ownership, pending-route behavior, active-ancestor chain, and route-scoped override reset:
+- Same-depth manual-open replacement, deeper-state pruning, cross-depth independence, active/manual coexistence, transition, toggle, and dismissal:
 - RTL and mobile drawer behavior:
 
 ### Intermediate
@@ -206,6 +208,7 @@
 - [ ] Functional checks cover success and failure paths.
 - [ ] Desktop, intermediate, and mobile behaviors are verified.
 - [ ] Expanded/collapsed/preview sidebar states and mobile navigation are verified by pointer and keyboard without unexpected reflow.
+- [ ] Recursive sidebar behavior is verified at two or more nested group levels: all active ancestors open, one manual sibling per depth replaces the previous branch, deeper stale state is pruned, active/manual groups may coexist, and route changes reset overrides.
 - [ ] Breadcrumb/current-page semantics, hidden heading, optional stats, and main-content order are verified.
 - [ ] Form validation is quiet before the first submit and responsive on input afterward.
 - [ ] The initial branded loader appears before framework startup, remains the only startup surface through session/redirect/initial-route readiness, matches both themes, announces once, respects reduced motion, and atomically leaves an active root with no stale overlay.

@@ -38,6 +38,32 @@ On narrow screens, replace the persistent sidebar/rail with a labeled navigation
 
 Motion should be short and spatially consistent. Respect `prefers-reduced-motion` by removing or minimizing width/transform animation while keeping state changes understandable.
 
+### Expandable navigation groups
+
+Use a disclosure row for a destination family; do not render a nested group as a permanently indented tree with a branch line or repeat full-size destination icons by default.
+
+- Represent the catalog as a recursive discriminated tree with `section`, `group`, and `link` nodes. A group may contain any navigation-node type, including another group, so supported depth is determined by content rather than a hard-coded one- or two-level component. Sections organize and label nodes without incrementing disclosure depth; groups increment it. Give nodes stable identifiers when identity cannot be guaranteed across renders.
+- Resolve active state once for the whole tree, then pass the same navigation controller and disclosure controller through every recursive render. The active resolver must walk all descendants, support explicit match patterns for dynamic or index routes, ignore external links, select one current destination, and expose both `isActive(link)` and `hasActiveDescendant(node)`. When the router exposes a pending destination, use that pathname during navigation so the sidebar follows the destination being committed rather than lagging on the previous URL.
+- The parent is a real button, not a placeholder link. Give it the same minimum height, padding, icon slot, label treatment, hover/focus behavior, and full-row hit area as first-level destinations. Put one downward caret at logical end and rotate it 180 degrees while open.
+- Treat every ancestor group as active when it is open or contains the active destination. A deeply active link therefore opens and emphasizes the complete ancestor chain. Use the normal root active surface treatment for top-level destinations and groups; use a quieter ghost active treatment for nested links and nested groups so descendants do not compete with their root ancestor as multiple filled rows.
+- Open each group in the active destination's ancestor chain automatically. The user may still collapse any active ancestor for the current route. Scope both manual-open and active-group-collapse overrides to the effective pathname and reset both collections when the route changes, so navigation follows the new context instead of restoring stale disclosure state.
+- Own disclosure state once at the navigation root, keyed by depth, and share it with every group. At each depth, allow at most one manually opened non-active group. Opening a different manual group at that depth replaces the previous one and clears manual selections at deeper depths because their ancestor branch is no longer current. Toggling an active-path group records or clears a route-scoped collapsed override at that depth instead of changing the manual slot.
+- Depth exclusivity is independent, not one global accordion: a manual group at depth 1 may remain open while a manual group inside it is open at depth 2. The automatically open active-path group may also coexist with the one manually opened non-active group at the same depth; this is intentional Hub behavior. Do not persist submenu disclosure in local storage by default—persist the sidebar's expanded/collapsed shell preference, not route-contextual tree state.
+- Indent the submenu with logical start padding, typically about 1 rem, and a small top gap. Do not add a vertical branch border. Only nested leaf destination links use a small outlined dot in a fixed marker slot; fill the dot for the active destination. An expandable group is a disclosure control, not a destination, so an iconless group must conditionally omit the marker element and its adjacent gap entirely—do not hide a dot or render an empty placeholder. Keep full child icons only when the product taxonomy genuinely requires distinct recognition.
+- Expand and collapse the submenu with a height-only reveal around 350 ms using a standard ease curve such as `cubic-bezier(.25,.1,.25,1)`; the caret can rotate over about 200 ms. Use overflow clipping, keep exit content mounted and non-focusable until collapse completes, and remove the transition under reduced motion. Do not fade or slide the entire nested list.
+- Connect the button and submenu with `aria-controls` and expose `aria-expanded`. Collapsed content must be hidden from assistive technology and removed from keyboard navigation. In the compact rail, suppress the submenu; the labeled hover/focus preview restores the same expanded disclosure behavior.
+- Use logical padding and insets so indentation mirrors in RTL without reversing DOM or keyboard order.
+
+Do not implement each group with isolated component state. That permits several root groups to remain manually open, cannot coordinate sibling replacement, and loses the correct behavior when groups nest. Keep route matching and disclosure ownership at the recursive navigation root; individual group rows only ask the shared controllers whether they are active/open and request a toggle.
+
+Test the navigation contract with behavior-level cases, not snapshots alone:
+
+- a link nested under at least two groups activates the link and automatically opens every ancestor;
+- an active ancestor can be collapsed for the current pathname and opens again after navigation changes;
+- opening a second non-active sibling closes the first at that same depth and clears stale manual choices below it;
+- manual groups at different depths can be open together, and the active path can coexist with one manual group at its depth;
+- pending/current route matching, explicit dynamic match patterns, external links, compact rail suppression, hover/focus preview, keyboard operation, `aria-expanded`, and collapsed-child focusability behave correctly.
+
 ## Dialog and drawer motion
 
 Animate overlay entry and exit; do not animate only the opening state and remove the node immediately on close.
