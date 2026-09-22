@@ -35,7 +35,7 @@ It works with **Codex, Claude Code, Cursor, and other Agent Skills-compatible to
 ### 1. Install the skill
 
 ```bash
-npx skills add omega-do-it-solutions/DashCraft --skill omega-panel
+npx skills add omega-do-it-solutions/OmegaPanel --skill omega-panel
 ```
 
 The installer detects supported agents and lets you choose where to install the skill. A project installation is usually best for teams because it can be committed with the application.
@@ -111,7 +111,7 @@ unrelated code.
 Install the companion independently when you want implementation-boundary guidance without the full dashboard workflow:
 
 ```bash
-npx skills add omega-do-it-solutions/DashCraft --skill code-quality
+npx skills add omega-do-it-solutions/OmegaPanel --skill code-quality
 ```
 
 ---
@@ -138,7 +138,7 @@ The canonical skill uses portable `name` and `description` frontmatter. The opti
 Use Omega Panel across all of your projects:
 
 ```bash
-npx skills add omega-do-it-solutions/DashCraft \
+npx skills add omega-do-it-solutions/OmegaPanel \
   --skill omega-panel \
   --global
 ```
@@ -146,7 +146,7 @@ npx skills add omega-do-it-solutions/DashCraft \
 ### Install for several agents without prompts
 
 ```bash
-npx skills add omega-do-it-solutions/DashCraft \
+npx skills add omega-do-it-solutions/OmegaPanel \
   --skill omega-panel \
   --global \
   --agent codex \
@@ -158,7 +158,7 @@ npx skills add omega-do-it-solutions/DashCraft \
 ### Preview without installing
 
 ```bash
-npx skills use omega-do-it-solutions/DashCraft \
+npx skills use omega-do-it-solutions/OmegaPanel \
   --skill omega-panel \
   --agent claude-code
 ```
@@ -168,8 +168,8 @@ npx skills use omega-do-it-solutions/DashCraft \
 If `npx` is unavailable, clone the repository and copy the complete skill directory:
 
 ```bash
-git clone git@github.com:omega-do-it-solutions/DashCraft.git
-cd DashCraft
+git clone git@github.com:omega-do-it-solutions/OmegaPanel.git
+cd OmegaPanel
 
 # Codex, Cursor, and universal Agent Skills clients
 mkdir -p /path/to/project/.agents/skills
