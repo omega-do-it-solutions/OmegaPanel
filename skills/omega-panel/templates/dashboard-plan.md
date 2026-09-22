@@ -65,7 +65,7 @@
 - Recursive navigation node model (`section | group | link`), supported depth, stable identity, explicit route-match rules, and external-link handling:
 - Shared active/disclosure controller ownership, pending-route behavior, active-ancestor chain, and route-scoped override reset:
 - Same-depth manual-open replacement, deeper-state pruning, cross-depth independence, active/manual coexistence, transition, toggle, and dismissal:
-- RTL and mobile drawer behavior:
+- Shared mobile navigation-drawer primitive, compact bounded width/gutter, logical-start motion/exit lifecycle, header trigger, desktop-toggle exclusion, route-close behavior, and RTL handling:
 
 ### Intermediate
 

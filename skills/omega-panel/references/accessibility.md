@@ -33,6 +33,7 @@ Read this reference while defining dashboard structure, controls, data displays,
 - Identify required fields and invalid values in text, not color alone.
 - Make filter scope, defaults, applied/pending state, and clear behavior explicit.
 - Ensure hit targets meet the applicable target-size requirement or provide adequate spacing/exceptions.
+- Let the semantic control or link own its full visible hit area. Preserve the document's platform `auto` cursor and assign a cursor only to elements whose semantics require it: pointer for enabled actions and navigation, text for editable content, resize/drag cursors for their matching mechanics, and an unavailable cursor for disabled actions when useful. Keep the chosen cursor consistent across the control and every nested text/icon descendant. Sortable table headers use a full-cell button rather than a small inline target inside clickable-looking padding.
 - Confirm destructive actions and support undo where feasible.
 - Before the first submit, avoid premature validation errors. On the first invalid submit, associate inline errors with fields, announce the failure once, and focus or scroll to the first invalid field. After that attempt, revalidate changed fields on input and clear resolved errors promptly without repetitive announcements.
 

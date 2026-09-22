@@ -62,6 +62,7 @@ Use during planning and again before handoff. A checked item should be supported
 - [ ] Switches represent immediate boolean settings, expose switch semantics, and communicate state through thumb position plus text or icon cues.
 - [ ] Single and dual range sliders expose formatted values, keyboard bounds/steps, clamped thumb behavior, and theme/RTL-safe fill geometry.
 - [ ] Composite select menus remain correctly layered, anchored, keyboard-operable, and focus-contained inside dialogs and drawers.
+- [ ] The document retains the platform `auto` cursor; enabled actions/navigation opt into `pointer`, editable content retains text behavior, drag/resize affordances use their matching cursors, disabled actions use an unavailable cursor when useful, and each chosen cursor covers the full hit area plus nested icons/labels.
 - [ ] Compact drawer panels (about 24/28/32 rem small/default/large) use transform-only inline-end slides with the same linear 250 ms timing on open and close and no panel fade; drawer backdrops fade in over the same 250 ms and remain steady during close. Dialogs fade/zoom with a backdrop fade in both directions. Exiting overlays remain mounted but inert until completion, then restore focus/scroll, with near-instant non-spatial reduced motion.
 - [ ] Destructive confirmation uses a compact `alertdialog` with a centered question and consequence, no close icon or section dividers, equal-width neutral Cancel and solid danger actions, safe initial focus, and explicit pending/error behavior; forms remain ordinary dialogs.
 - [ ] Loading, refresh, stale, partial, first-use empty, filtered empty, error, offline, and retry are defined.
@@ -73,6 +74,8 @@ Use during planning and again before handoff. A checked item should be supported
 
 - [ ] Wide, intermediate, and narrow layouts define priority and reflow.
 - [ ] Desktop navigation defines expanded, collapsed rail, and collapsed hover/focus preview states; preview overlays without changing content layout or the saved preference.
+- [ ] Mobile navigation reuses the shared drawer/sheet primitive, stays near the expanded-sidebar width (about 18 rem) with a viewport-safe backdrop gutter instead of becoming full width, slides from logical inline-start with 250 ms linear entry/exit and exit presence, and closes through the same focus-safe lifecycle on close, backdrop, `Escape`, or destination selection.
+- [ ] The mobile header shows only the navigation-drawer trigger; the desktop rail collapse/expand control is absent at mobile sizes, the mobile trigger is absent at desktop sizes, and mobile navigation never changes the persisted desktop collapsed preference.
 - [ ] Navigation uses a recursive `section | group | link` model; groups can contain groups at arbitrary depth, sections do not increment disclosure depth, and one shared active/disclosure controller—not isolated group state—serves the complete tree.
 - [ ] A deeply active destination opens and marks every ancestor, pending/current paths plus explicit dynamic match patterns resolve correctly, and external links do not become route-active.
 - [ ] Expandable navigation uses a full-row parent disclosure, allows active ancestors to be collapsed for the current route, resets manual-open and active-collapse overrides on route change, and does not persist stale submenu state.

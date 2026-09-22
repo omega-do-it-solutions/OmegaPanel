@@ -4,10 +4,14 @@ All notable changes to Omega Panel are documented here. The project follows sema
 
 ## Unreleased
 
+## 0.4.0 - 2026-09-22
+
 ### Changed
 
 - Renamed the project and primary Agent Skill from DashCraft / `dashboard-craft` to Omega Panel / `omega-panel`.
 - Replaced the project logo and refreshed the README around a friendly quick start followed by advanced installation and maintainer guidance.
+- Mobile application navigation must reuse the shared drawer/sheet primitive, remain a compact sidebar-width panel with a viewport-safe gutter instead of becoming full width, slide from logical inline-start with the complete 250 ms entry/exit lifecycle, preserve the desktop collapsed preference, and exclude the desktop rail toggle from mobile headers.
+- Cursor behavior now preserves the platform `auto` baseline and assigns `pointer`, text, drag/resize, or unavailable cursors only to elements whose interaction semantics require them, with one consistent cursor across each complete control hit area and its descendants.
 
 ## 0.3.0 - 2026-09-22
 
