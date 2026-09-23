@@ -69,7 +69,7 @@ That is enough to get started. Everything below helps you use Omega Panel more d
 | 🧭 Structure | Breadcrumb-led admin pages, purposeful stat cards, clear primary content, and decision-first hierarchy |
 | 🗂 Navigation | Expanded, collapsed, hover/focus-preview, mobile drawer, and recursive nested navigation behavior |
 | 🔎 Data tables | Toolbars, search, filter drawers, clearable three-state sorting, pagination, resizing, pinning, and URL state |
-| 📝 Forms | Accessible controls and submit-first validation that switches to input revalidation after the first attempt |
+| 📝 Forms and editors | Accessible controls, coherent save/publish commands, unsaved-work safety, state-valid account actions, and submit-first validation |
 | 📈 Charts | Honest chart selection, ApexCharts guidance, smooth curves, restrained animation, and accessible alternatives |
 | 🌍 Global UX | Locale-aware copy, dates, time zones, numbers, currencies, fonts, RTL, search, sort, and export |
 | ♿ Accessibility | Semantic structure, keyboard behavior, focus management, contrast, reflow, announcements, and reduced motion |
@@ -191,7 +191,7 @@ Omega Panel chooses one of four modes from the user's request:
 3. **Review** — inspect a design or implementation and return evidence-backed findings by severity.
 4. **Refine** — update an existing plan while preserving accepted decisions and exposing changed assumptions.
 
-The workflow connects product decisions to data contracts, information architecture, component behavior, responsive layout, implementation boundaries, accessibility, internationalization, QA, and acceptance criteria. Package suggestions are treated as a capability menu—not an install-everything list.
+The workflow connects product decisions to data contracts, information architecture, component behavior, editor/settings mutation lifecycles, responsive layout, implementation boundaries, accessibility, internationalization, QA, and acceptance criteria. Package suggestions are treated as a capability menu—not an install-everything list.
 
 ## 🧰 Recommended implementation capabilities
 

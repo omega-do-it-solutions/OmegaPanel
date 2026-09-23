@@ -106,6 +106,21 @@
 - Single/dual range bounds, step, formatting, keyboard behavior, thumb collision policy, and RTL geometry:
 - Light/dark tokens, focus, forced colors, target sizes, and non-color state cues:
 
+### Admin editor and settings contract
+
+- Object/settings identity and reason for any visible heading beyond the breadcrumb:
+- Standalone route vs drawer/dialog decision:
+- Primary/secondary command ownership and responsive persistent command behavior:
+- Save boundary and dirty/saving/saved/validation/server-error/offline/conflict states:
+- Unsaved navigation, tab, browser-exit, and content-locale switching behavior:
+- Read-only/system metadata presentation:
+- Form section hierarchy, box-layer justification, spacing/separator/muted-background grouping, field measure, helper-copy policy, and required-field indication:
+- Record/account state model and state-valid actions:
+- Content lifecycle, preview/publish/schedule/revision/time-zone behavior:
+- UI locale vs content locale, completion/fallback/per-locale publish behavior:
+- Tabs/section navigation overflow and keyboard behavior:
+- Repeater identity/count/limit/add/remove/reorder/error behavior:
+
 ### Admin table contract
 
 - Toolbar search/actions/applied filters:
@@ -219,6 +234,10 @@
 - [ ] Formatting, time zones, fonts, mixed direction, switching, fallback, search/sort, and export pass.
 - [ ] The locale selector passes pointer, keyboard, focus-restoration, persistence, expansion, narrow-screen, and LTR/RTL checks; flags are never the only language label.
 - [ ] Roles and permission boundaries pass server and UI tests.
+- [ ] Long admin mutations keep commands reachable, expose save state, survive recoverable failures, detect conflicts, and prevent accidental loss of dirty work.
+- [ ] Account/user actions match the modeled state and permission, read-only facts are not editable-looking, and dangerous access changes respect last-owner and confirmation rules.
+- [ ] UI/content locale separation, editor tabs, repeaters, first-use/filtered-empty states, target sizes, readable type, and dark-theme contrast pass their documented checks.
+- [ ] Visual hierarchy does not depend on card-inside-card nesting; remaining nested borders have explicit containment, interaction, or independent-state justification.
 
 ## 12. Risks and open questions
 

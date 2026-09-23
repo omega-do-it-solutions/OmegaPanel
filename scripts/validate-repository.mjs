@@ -33,6 +33,7 @@ const requiredPaths = [
   'SKILL.md',
   'agents/openai.yaml',
   'assets/omega-panel-logo.png',
+  'references/admin-editors-and-settings.md',
   'references/application-shell-and-forms.md',
   'references/dashboard-design.md',
   'references/form-controls.md',

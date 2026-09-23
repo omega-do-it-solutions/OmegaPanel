@@ -32,7 +32,7 @@ Read this reference while defining dashboard structure, controls, data displays,
 - Connect help and error text programmatically.
 - Identify required fields and invalid values in text, not color alone.
 - Make filter scope, defaults, applied/pending state, and clear behavior explicit.
-- Ensure hit targets meet the applicable target-size requirement or provide adequate spacing/exceptions.
+- Use 44 by 44 CSS pixels as the normal minimum hit area for buttons, links presented as controls, icon actions, navigation rows, tabs, chips with actions, sort controls, and form-control labels. In an intentionally dense data surface, a smaller target may be used only when it still meets WCAG 2.2 AA's 24 by 24 CSS-pixel target rule or a documented spacing/inline exception, remains easy to acquire, and has no dead clickable-looking padding. Never shrink a primary or destructive action below the 44-pixel product baseline.
 - Let the semantic control or link own its full visible hit area. Preserve the document's platform `auto` cursor and assign a cursor only to elements whose semantics require it: pointer for enabled actions and navigation, text for editable content, resize/drag cursors for their matching mechanics, and an unavailable cursor for disabled actions when useful. Keep the chosen cursor consistent across the control and every nested text/icon descendant. Sortable table headers use a full-cell button rather than a small inline target inside clickable-looking padding.
 - Confirm destructive actions and support undo where feasible.
 - Before the first submit, avoid premature validation errors. On the first invalid submit, associate inline errors with fields, announce the failure once, and focus or scroll to the first invalid field. After that attempt, revalidate changed fields on input and clear resolved errors promptly without repetitive announcements.
@@ -62,7 +62,8 @@ Use an ARIA grid only when spreadsheet-like cell navigation is genuinely require
 
 ## Visual resilience
 
-- Meet AA contrast for text and essential controls/graphics; verify actual color pairs in every theme and state.
+- Meet at least 4.5:1 contrast for normal text, 3:1 for large text, and 3:1 for essential control boundaries, focus indicators, and meaningful graphics; verify the actual rendered color pairs in light and dark themes and in every interactive state. Muted text is still text and may not be faded below AA merely to appear secondary.
+- Keep routine body, label, helper, table, and navigation text readable at default zoom. Use about 14 CSS pixels or larger for operational copy; reserve 12-pixel text for genuinely secondary metadata, never primary labels, instructions, state, errors, or actions. Do not solve dense layouts by shrinking text and targets together.
 - Support text zoom and reflow without two-dimensional scrolling except where the data structure genuinely requires it.
 - Do not clip at 200% zoom or under 30–50% text expansion.
 - Avoid fixed text heights. Allow translated labels and script-specific line heights to wrap.

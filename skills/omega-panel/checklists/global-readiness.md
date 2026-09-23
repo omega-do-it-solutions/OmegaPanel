@@ -47,6 +47,7 @@ Worldwide readiness is a release gate within dashboard quality, not a separate o
 - [ ] Representative flags are decorative and product-approved; language names remain visible, and language/country ambiguity has an explicit fallback.
 - [ ] Table URL parameters store stable IDs/ISO values rather than localized labels or formatted dates/numbers.
 - [ ] Switching preserves focus, filters, unsaved work, and route where appropriate.
+- [ ] In localized-content administration, UI locale and authored-content locale are independent: switching either preserves or safely resolves dirty work, and per-content-locale completion, fallback, validation, and publish behavior are explicit.
 - [ ] Search normalization and locale-aware collation match user expectations.
 - [ ] CSV/export defines UTF-8 encoding, delimiter, headings, raw/display values, currency, locale, and time zone.
 - [ ] User-controlled spreadsheet exports are protected from formula injection.

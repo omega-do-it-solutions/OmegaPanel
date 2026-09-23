@@ -115,6 +115,17 @@ When the locale set is larger, user-configurable, searchable, or region-heavy, u
 
 Never show a raw key to end users. A safe fallback is explicit and observable to developers. Do not silently fall back across writing direction without testing the resulting mixed UI.
 
+### UI locale versus authored-content locale
+
+In a CMS, catalog, messaging, or other localized-content admin, treat these as independent state:
+
+- **UI locale** controls navigation, commands, helper text, formatting, and application direction.
+- **Content locale** selects the record fields and publication state being authored.
+
+The global header locale selector changes only the UI locale. Put content-locale selection inside the editor, near its content state. Show the active content locale even when it matches the UI locale, and expose per-locale completeness, validation, draft/published state, fallback, and missing-translation behavior when the product supports them.
+
+Changing UI locale must preserve the content locale and unsaved draft. Changing content locale must save safely, preserve a draft, or ask for confirmation before fields unmount; it must never silently discard or overwrite another locale. Define whether content publishing is per locale or shared, how fallback appears to the audience, and how “copy from locale” avoids overwriting existing work. Follow [admin-editors-and-settings.md](admin-editors-and-settings.md) for the complete editing workflow.
+
 ## Search, sort, and export
 
 - Collate human-readable strings with the resolved locale; keep stable secondary sorting.

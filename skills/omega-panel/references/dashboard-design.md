@@ -34,7 +34,7 @@ Prefer a strong reading order. A card is not a semantic unit by itself; use a ca
 
 ### Application page shell
 
-For dashboard/admin pages, the breadcrumb is the visible page identity. Do not insert a generic page hero with an eyebrow/kicker or slug-like label, large repeated title, filler description, and detached right-side actions. Keep one programmatic page heading, normally a visually hidden `h1` that matches the current breadcrumb item. The main sequence is breadcrumb → optional useful stat cards → table/form/other primary content. Actions belong to the surface they operate on. Use a visible page introduction only when required task guidance or object identity cannot live in the breadcrumb or primary surface, and document the exception. Omit stat cards when they do not help a user decide or act.
+For dashboard/admin pages, the breadcrumb is the visible page identity. Do not insert a generic page hero with an eyebrow/kicker or slug-like label, large repeated title, filler description, and detached right-side actions. This prohibition still applies when only part of the pattern is present: a lone oversized title, decorative kicker, sentence that restates the navigation, or page-level action row does not become valid by omitting the other pieces. Keep one programmatic page heading, normally a visually hidden `h1` that matches the current breadcrumb item. The main sequence is breadcrumb → optional useful stat cards → table/form/other primary content, without a large empty introduction band between them. Actions belong to the surface they operate on. Use a visible page introduction only when required task guidance or record identity cannot live in the breadcrumb or primary surface, and document the exception. Omit stat cards when they do not help a user decide or act.
 
 The desktop navigation has an expanded persistent state, a collapsed icon rail, and a collapsed hover/focus preview that overlays content without reflow. The mobile equivalent is a drawer rather than a hover interaction. Follow the detailed semantics, persistence, focus, RTL, and responsive rules in [application-shell-and-forms.md](application-shell-and-forms.md).
 
@@ -52,11 +52,22 @@ Each metric needs:
 
 Keep comparison language explicit: “vs previous 30 days,” not “+8%” without a baseline. Use percentage points for rate deltas when that is the intended meaning.
 
+### Overview priority
+
+An overview is not a grid-filling exercise. Rank exceptions, work queues, and next actions before healthy or zero-value summaries. Give the most consequential condition stronger placement and attach owner, deadline/freshness, context, and the next valid action when available. Do not give an urgent exception and several zeros identical card weight.
+
+Do not force neighboring cards or columns to equal height when one contains little or no content; large blank rectangles weaken scan order. Rebalance the grid, let sections size to content, or move a small secondary region below or alongside the primary region. Avoid repeating the same zero or status in a KPI card and a nearby empty panel unless each supports a distinct decision.
+
+Recent activity/content must be recognizable and actionable. Use a safe fallback identity plus useful state, type, owner, and modified time when a title is absent; a repeated list of “Untitled” records without distinguishing context is not an operational summary.
+
 ## Layout and density
 
 - Use a bounded content width for scanability unless dense tables genuinely benefit from the viewport.
 - Align unrelated regions to a shared grid, but allow the primary chart/table more space than secondary cards.
 - Use spacing and headings before boxes and dividers.
+- Treat every border, radius, shadow, or background surface as a semantic decision. A container must communicate a real grouping, interaction boundary, independent loading state, or elevated layer; remove it when spacing and alignment preserve the same meaning.
+- Default to whitespace, alignment, section headings, separator lines, or a restrained muted/slate background for secondary grouping. Do not express hierarchy by recursively wrapping cards in bordered cards.
+- More than one visible nested bordered surface requires an explicit containment or independent-state reason. Three visible box layers is a design failure. A header, toolbar, table, and footer may share one outer surface without each becoming another card.
 - Keep controls near the content they affect. Distinguish global scope from local filters.
 - Provide compact density only when users work frequently with large datasets; preserve adequate targets and line height.
 - Avoid masonry layouts for data comparison because shifting baselines impede scanning.
@@ -76,6 +87,8 @@ Show active filters in readable language. Make “clear,” default, and no-resu
 For expensive queries, use an Apply action; otherwise provide immediate updates with visible progress and stable layout. Announce result-count changes to assistive technology without excessive chatter.
 
 For table-heavy admin screens, use a toolbar directly above the table in the same bordered card. Put search at the start and filter/export/primary actions at the end; never relocate them to a page hero or shell-level title row. Show applied filters as removable chips on a second toolbar row. Use an end-side filter drawer with draft values plus Clear all and Apply actions. Keep the toolbar and column headers visible in filtered-empty and error states so users can recover without losing context.
+
+First-use empty and filtered empty are not interchangeable. First use may explain the object and offer the permitted create/import action. Filtered empty retains the search/filter context and offers Clear filters or query correction. Permission-limited, load-failure, and true-zero states use their own copy and recovery; never collapse any of them into a generic “No results” message.
 
 ## Tables
 
@@ -130,6 +143,8 @@ Design state at two levels: page shell and independently loaded regions. Documen
 - recoverable vs terminal errors;
 - permission-denied vs hidden capability;
 - optimistic updates, conflicts, retries, confirmation, and undo.
+
+Every empty or unavailable state must identify its cause from the user's perspective and offer only actions valid for that cause. Do not advertise Create in both the toolbar and empty panel by default, do not call a failed request empty, and do not imply a permission-limited dataset contains no records.
 
 Skeletons must reproduce at least 90% of the final region's geometry rather than merely approximate its outer rectangle. Share the final grid, padding, row heights, and structural divisions; use deterministic content-shaped bars. Follow [skeleton-loaders.md](skeleton-loaders.md), including its distinct initial-load, row-set-transition, and background-refresh behavior. Avoid indefinite spinners. Keep filter and navigation controls usable during background refresh when safe.
 

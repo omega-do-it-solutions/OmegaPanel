@@ -19,6 +19,7 @@
 | --- | --- | --- |
 | Decision clarity and information architecture |  |  |
 | Breadcrumb page shell and optional stat-card hierarchy |  |  |
+| Overview exception priority, duplicate signals, dead space, and surface nesting |  |  |
 | Expanded/collapsed/preview sidebar and mobile navigation |  |  |
 | Data/metric integrity |  |  |
 | Components and visualization |  |  |
@@ -29,6 +30,9 @@
 | Responsive behavior |  |  |
 | Accessibility |  |  |
 | Submit-first then input form validation |  |  |
+| Editor/settings command ownership, save lifecycle, and unsaved-work safety |  |  |
+| Record/account state-valid actions and read-only presentation |  |  |
+| Content lifecycle, UI/content locale separation, tabs, and repeaters |  |  |
 | Framework fit and dependency selection |  |  |
 | Message architecture and plurals |  |  |
 | Formatting, currencies, and time zones |  |  |

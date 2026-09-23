@@ -19,13 +19,13 @@ Score evidence and internal coherence, not the presence of keywords. Give partia
 
 - **4:** Gives a purposeful ordered information architecture with breadcrumb-led page identity, optional decision-useful stats, primary content, visible scope/freshness, and no redundant title block.
 - **3:** Distinguishes global scope, analysis filters, and view controls with clear/reset/URL behavior.
-- **3:** Defines useful actions and drill paths without overloading the page.
-- **2:** Tables/dense regions specify toolbar/filter flow, clearable sorting, identity, actions, advanced columns, pagination metadata/page size, URL state, loading, and export as relevant.
+- **3:** Defines useful, surface-owned actions and drill paths without overloading the page; overviews prioritize exceptions and avoid duplicate zero signals, forced-height dead space, or recursive card nesting.
+- **2:** Tables/dense regions specify toolbar/filter flow, clearable sorting, identity, actions, advanced columns, pagination metadata/page size, URL state, loading, export, and cause-specific empty-state recovery as relevant.
 
 ## 4. State and permission completeness — 10 points
 
 - **4:** Covers initial loading, background refresh/stale, first-use/filtered empty/true zero, partial/full error, and retry.
-- **3:** Covers success, optimistic/pending, conflict, destructive confirmation, or undo where relevant.
+- **3:** Covers success, optimistic/pending, conflict, destructive confirmation, or undo where relevant; mutation pages define save/dirty/error state and protect unsaved work.
 - **3:** Defines role/permission/redaction behavior without implying that UI hiding is authorization.
 
 ## 5. Responsive behavior — 10 points
@@ -54,7 +54,7 @@ Score evidence and internal coherence, not the presence of keywords. Give partia
 ## 8. Implementation consistency — 8 points
 
 - **3:** Maps the plan to coherent component/data/view-model boundaries and query/state ownership.
-- **2:** Centralizes message/formatting behavior, defines submit-first then input form validation, selects only justified ecosystem packages, and, for React tables, defines TanStack Table/Query + Axios ownership, URL state, table toolbar/pagination, ApexCharts, Day.js, and font behavior while keeping business logic/permissions outside presentational components.
+- **2:** Centralizes message/formatting behavior, defines submit-first then input form validation, gives long admin forms coherent command/save boundaries and state-valid actions, selects only justified ecosystem packages, and, for React tables, defines TanStack Table/Query + Axios ownership, URL state, table toolbar/pagination, ApexCharts, Day.js, and font behavior while keeping business logic/permissions outside presentational components.
 - **2:** Defines meaningful functional, accessibility, permission, locale, and failure tests.
 - **1:** Stays framework-agnostic unless a stack is requested and makes performance risks/rollout explicit where relevant.
 
@@ -70,6 +70,8 @@ Any one causes failure regardless of total score:
 6. Produces no implementation-ready structure—only aesthetic inspiration or a widget list.
 7. Invents a material business metric/permission as confirmed fact without labeling the assumption or open decision.
 8. Locks the implementation to React or installs the suggested package list despite an existing compatible stack and no requirement to migrate.
+9. For a mutation-heavy admin task, provides no discoverable primary command, save/error state, or protection from losing unsaved work.
+10. Conflates the global UI locale with the authored-content locale in a localized content workflow.
 
 ## Reviewer calibration
 

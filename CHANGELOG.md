@@ -4,6 +4,22 @@ All notable changes to Omega Panel are documented here. The project follows sema
 
 ## Unreleased
 
+## 0.5.0 - 2026-09-23
+
+### Added
+
+- A dedicated admin-editor and settings contract covering persistent command areas, mutation/save boundaries, dirty and conflict states, unsaved-work protection, read-only presentation, publishing and scheduling, repeaters, section navigation, account/user state machines, and concise user-facing copy.
+- Explicit separation between global UI locale and authored-content locale, including per-locale completeness, fallback, publish state, and safe switching without draft loss.
+- A multilingual content-administration evaluation scenario and review coverage for editors, settings, account actions, tabs, repeaters, typography, contrast, and cause-specific empty states.
+
+### Changed
+
+- Tightened the authenticated page-shell prohibition so partial versions of the oversized title/kicker/description/action hero and its empty introduction band also fail review.
+- Made recursive box-in-box layouts an explicit failure: ordinary grouping now defaults to spacing, alignment, headings, separator lines, or restrained muted/slate backgrounds, and every nested bordered surface requires a real containment, interaction, or independent-state reason.
+- Overview guidance now prioritizes actionable exceptions, rejects equal-weight zero summaries and forced-height dead space, and requires recognizable recent-content identity.
+- Empty-state rules now strictly distinguish first use, filtered empty, permission limits, load failures, and true zero with state-specific recovery.
+- Accessibility rules now use a 44-by-44 CSS-pixel product target baseline, documented WCAG 2.2 AA dense exceptions, explicit AA contrast ratios, and readable operational type guidance.
+
 ## 0.4.0 - 2026-09-22
 
 ### Changed
